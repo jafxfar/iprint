@@ -111,11 +111,35 @@
   animation: fadeUp 0.8s ease forwards;
 }
 
-/* Number counter line */
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.3; transform: scaleY(0.5); }
+}
+
+/* Service item hover */
 .service-item {
   border-top: 1px solid var(--border);
   transition: background 0.3s ease;
 }
 .service-item:hover {
   background: var(--secondary);
+}
+
+/* Link underline hover utility */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after {
+  width: 100%;
 }
