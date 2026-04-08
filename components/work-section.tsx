@@ -178,7 +178,7 @@ function ProjectCard({
           className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
         />
         {/* Overlay */}
-        <div className="absolute inset-0 bg-background/20 group-hover:bg-background/0 transition-all duration-500" />
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-500" />
         {/* Project number */}
         <span className={`absolute top-6 left-6 font-mono text-xs tracking-widest ${project.textColor} opacity-60`}>
           {project.id}

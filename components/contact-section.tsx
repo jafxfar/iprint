@@ -179,11 +179,11 @@ export function ContactSection() {
                 onChange={handleChange}
                 className="w-full bg-transparent text-foreground text-base outline-none"
               >
-                <option value="" className="bg-background">Select budget</option>
-                <option value="<500k" className="bg-background">До 500 000 ₽</option>
-                <option value="500k-2m" className="bg-background">500 000 — 2 000 000 ₽</option>
-                <option value="2m-10m" className="bg-background">2 000 000 — 10 000 000 ₽</option>
-                <option value="10m+" className="bg-background">Более 10 000 000 ₽</option>
+                <option value="">Select budget</option>
+                <option value="<500k">До 500 000 ₽</option>
+                <option value="500k-2m">500 000 — 2 000 000 ₽</option>
+                <option value="2m-10m">2 000 000 — 10 000 000 ₽</option>
+                <option value="10m+">Более 10 000 000 ₽</option>
               </select>
             </div>
 

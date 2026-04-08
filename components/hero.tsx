@@ -73,14 +73,14 @@ export function Hero() {
 
       {/* ── VIDEO BACKGROUND ── */}
       <div className="absolute inset-0 -z-10">
-        {/* Dark overlay so text stays readable */}
-        <div className="absolute inset-0 z-10 bg-background/70" />
-        {/* Gradient vignette for extra depth */}
+        {/* Light overlay so text stays readable over video */}
+        <div className="absolute inset-0 z-10 bg-white/75" />
+        {/* Gradient vignette for depth */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.7) 100%)",
+              "radial-gradient(ellipse at center, transparent 20%, rgba(255,255,255,0.5) 100%)",
           }}
         />
         {/* Grain texture overlay */}
@@ -116,11 +116,10 @@ export function Hero() {
           </video>
         )}
 
-        {/* Fallback gradient when video fails / loads */}
+        {/* Fallback for when video hasn't loaded yet */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-background"
           style={{
-            background: "linear-gradient(135deg, oklch(0.08 0 0) 0%, oklch(0.13 0 0) 50%, oklch(0.08 0.02 47) 100%)",
             opacity: videoLoaded ? 0 : 1,
             transition: "opacity 1.8s ease",
           }}
