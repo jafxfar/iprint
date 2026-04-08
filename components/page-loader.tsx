@@ -3,13 +3,29 @@
 import { useEffect, useState, useRef } from "react"
 
 // Grid columns × rows for the block-wipe exit animation
-const COLS = 8
-const ROWS = 6
+const COLS = 10
+const ROWS = 8
+
+// Pre-compute CSS delay (ms) for each block index
+// Strategy: column-staggered (left→right), within column bottom-row first (top-row last)
+const COL_STAGGER = 55  // ms per column
+const ROW_STAGGER = 40  // ms per row within a column (bottom = row ROWS-1 → delay 0)
+
+function getBlockDelay(idx: number): number {
+  const col = idx % COLS
+  const row = Math.floor(idx / COLS)
+  // Bottom row (row = ROWS-1) fires first → rowOffset = 0
+  // Top row (row = 0) fires last → rowOffset = (ROWS-1)*ROW_STAGGER
+  const rowOffset = (ROWS - 1 - row) * ROW_STAGGER
+  return col * COL_STAGGER + rowOffset
+}
+
+const TOTAL_WIPE_MS =
+  (COLS - 1) * COL_STAGGER + (ROWS - 1) * ROW_STAGGER + 600 // transition duration
 
 export function PageLoader() {
   const [count, setCount] = useState(0)
   const [phase, setPhase] = useState<"counting" | "wiping" | "done">("counting")
-  const [wipedBlocks, setWipedBlocks] = useState<Set<number>>(new Set())
   const rafRef = useRef<number | null>(null)
   const startRef = useRef<number | null>(null)
   const DURATION = 2200 // ms to count 0→100
@@ -32,8 +48,7 @@ export function PageLoader() {
         rafRef.current = requestAnimationFrame(animate)
       } else {
         setCount(100)
-        // small pause at 100 then start wipe
-        setTimeout(() => setPhase("wiping"), 300)
+        setTimeout(() => setPhase("wiping"), 350)
       }
     }
 
@@ -43,33 +58,11 @@ export function PageLoader() {
     }
   }, [phase])
 
-  // Phase 2 — staggered block wipe bottom-to-top, column by column
+  // Phase 2 — all blocks get their CSS delay pre-computed; one state flip triggers all
   useEffect(() => {
     if (phase !== "wiping") return
-
-    const total = COLS * ROWS
-    const timers: ReturnType<typeof setTimeout>[] = []
-
-    // Build order: bottom row first, column stagger within each row
-    const order: number[] = []
-    for (let row = ROWS - 1; row >= 0; row--) {
-      for (let col = 0; col < COLS; col++) {
-        order.push(row * COLS + col)
-      }
-    }
-
-    order.forEach((idx, i) => {
-      const t = setTimeout(() => {
-        setWipedBlocks((prev) => new Set(prev).add(idx))
-      }, i * 28)
-      timers.push(t)
-    })
-
-    // After all blocks wiped → done
-    const done = setTimeout(() => setPhase("done"), order.length * 28 + 400)
-    timers.push(done)
-
-    return () => timers.forEach(clearTimeout)
+    const done = setTimeout(() => setPhase("done"), TOTAL_WIPE_MS)
+    return () => clearTimeout(done)
   }, [phase])
 
   if (phase === "done") return null
@@ -89,18 +82,22 @@ export function PageLoader() {
           gridTemplateRows: `repeat(${ROWS}, 1fr)`,
         }}
       >
-        {Array.from({ length: COLS * ROWS }).map((_, i) => (
-          <div
-            key={i}
-            style={{
-              background: "#0a0a0a",
-              transform: wipedBlocks.has(i) ? "translateY(-105%)" : "translateY(0%)",
-              transition: wipedBlocks.has(i)
-                ? "transform 0.55s cubic-bezier(0.76, 0, 0.24, 1)"
-                : "none",
-            }}
-          />
-        ))}
+        {Array.from({ length: COLS * ROWS }).map((_, i) => {
+          const isWiping = phase === "wiping"
+          const delay = getBlockDelay(i)
+          return (
+            <div
+              key={i}
+              style={{
+                background: "#0a0a0a",
+                transform: isWiping ? "translateY(-102%)" : "translateY(0%)",
+                transition: isWiping
+                  ? `transform 0.55s cubic-bezier(0.76, 0, 0.24, 1) ${delay}ms`
+                  : "none",
+              }}
+            />
+          )
+        })}
       </div>
 
       {/* ── COUNTER (sits underneath the grid blocks) ── */}
