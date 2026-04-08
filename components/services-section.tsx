@@ -698,86 +698,86 @@ export function ServicesSection() {
       {/* ── Main layout: sidebar + content ── */}
       <div className="px-8 max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-0 min-h-[700px]">
 
-        {/* LEFT: Category tabs + sub-service list */}
+        {/* LEFT: Accordion sidebar */}
         <div className="lg:w-80 xl:w-96 shrink-0 border-r border-border pr-0 lg:pr-8">
-          {/* Category tabs */}
-          <div className="flex flex-col border-b border-border mb-6">
-            {services.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setActiveCategory(cat.id)
-                  setActiveSub(null)
-                }}
-                className="flex items-center justify-between py-4 text-left border-b border-border last:border-0 group transition-colors duration-200"
-                style={{
-                  color: activeCategory === cat.id ? "var(--foreground)" : "var(--muted-foreground)",
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className="text-[10px] tracking-widest shrink-0"
-                    style={{ color: "var(--muted-foreground)" }}
-                  >
-                    {cat.id}
-                  </span>
-                  <span
-                    className="font-serif font-bold text-sm transition-colors duration-200"
+          <div className="flex flex-col">
+            {services.map((cat) => {
+              const isOpen = activeCategory === cat.id
+              return (
+                <div key={cat.id} className="border-b border-border">
+                  {/* Category header — click to open/close */}
+                  <button
+                    onClick={() => {
+                      setActiveCategory(cat.id)
+                      setActiveSub(null)
+                    }}
+                    className="w-full flex items-center justify-between py-4 text-left group transition-colors duration-200"
                     style={{
-                      fontSize: "0.95rem",
-                      letterSpacing: "-0.01em",
+                      color: isOpen ? "var(--foreground)" : "var(--muted-foreground)",
                     }}
                   >
-                    {cat.title}
-                  </span>
-                </div>
-                <svg
-                  width="14" height="14" viewBox="0 0 14 14" fill="none"
-                  className="shrink-0 transition-transform duration-300"
-                  style={{ transform: activeCategory === cat.id ? "rotate(90deg)" : "rotate(0deg)" }}
-                >
-                  <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            ))}
-          </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] tracking-widest shrink-0 text-muted-foreground">
+                        {cat.id}
+                      </span>
+                      <span
+                        className="font-serif font-bold transition-colors duration-200"
+                        style={{ fontSize: "0.95rem", letterSpacing: "-0.01em" }}
+                      >
+                        {cat.title}
+                      </span>
+                    </div>
+                    {/* Chevron rotates when open */}
+                    <svg
+                      width="14" height="14" viewBox="0 0 14 14" fill="none"
+                      className="shrink-0 transition-transform duration-300"
+                      style={{ transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}
+                    >
+                      <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
 
-          {/* Sub-services list for active category */}
-          <div className="flex flex-col gap-1">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-3">Выберите услугу</p>
-            {currentCategory.items.map((item, i) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveSub(item)}
-                className="flex items-center justify-between py-3 px-4 text-left transition-all duration-200 group"
-                style={{
-                  background: activeSub?.id === item.id ? "var(--muted)" : "transparent",
-                  opacity: 0,
-                  animation: `fadeSlideIn 0.4s ease ${i * 40}ms forwards`,
-                }}
-              >
-                <span
-                  className="text-sm transition-colors duration-200"
-                  style={{
-                    color: activeSub?.id === item.id ? "var(--foreground)" : "var(--muted-foreground)",
-                    fontWeight: activeSub?.id === item.id ? "500" : "400",
-                  }}
-                >
-                  {item.title}
-                </span>
-                <svg
-                  width="12" height="12" viewBox="0 0 12 12" fill="none"
-                  className="shrink-0 transition-all duration-200"
-                  style={{
-                    opacity: activeSub?.id === item.id ? 1 : 0,
-                    transform: activeSub?.id === item.id ? "translateX(0)" : "translateX(-4px)",
-                    color: "var(--foreground)",
-                  }}
-                >
-                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            ))}
+                  {/* Sub-services — inline accordion, visible only when category is open */}
+                  {isOpen && (
+                    <div className="flex flex-col pb-3">
+                      {cat.items.map((item, i) => (
+                        <button
+                          key={item.id}
+                          onClick={() => setActiveSub(item)}
+                          className="flex items-center justify-between py-2.5 pl-7 pr-2 text-left transition-all duration-200 group rounded-sm"
+                          style={{
+                            background: activeSub?.id === item.id ? "var(--muted)" : "transparent",
+                            opacity: 0,
+                            animation: `fadeSlideIn 0.35s ease ${i * 35}ms forwards`,
+                          }}
+                        >
+                          <span
+                            className="text-sm transition-colors duration-200 text-left"
+                            style={{
+                              color: activeSub?.id === item.id ? "var(--foreground)" : "var(--muted-foreground)",
+                              fontWeight: activeSub?.id === item.id ? "500" : "400",
+                            }}
+                          >
+                            {item.title}
+                          </span>
+                          <svg
+                            width="12" height="12" viewBox="0 0 12 12" fill="none"
+                            className="shrink-0 transition-all duration-200 ml-2"
+                            style={{
+                              opacity: activeSub?.id === item.id ? 1 : 0,
+                              transform: activeSub?.id === item.id ? "translateX(0)" : "translateX(-4px)",
+                              color: "var(--foreground)",
+                            }}
+                          >
+                            <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
 
