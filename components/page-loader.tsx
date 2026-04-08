@@ -2,35 +2,36 @@
 
 import { useEffect, useState, useRef } from "react"
 
-// Grid columns × rows for the block-wipe exit animation
+// Grid dimensions for the block-wipe exit animation
 const COLS = 10
 const ROWS = 8
 
-// Pre-compute CSS delay (ms) for each block index
-// Strategy: column-staggered (left→right), within column bottom-row first (top-row last)
-const COL_STAGGER = 55  // ms per column
-const ROW_STAGGER = 40  // ms per row within a column (bottom = row ROWS-1 → delay 0)
+// Stagger timings
+const COL_STAGGER = 60    // ms between each column (left → right)
+const ROW_STAGGER = 45    // ms between rows within a column (bottom → top)
+const BLOCK_DURATION = 580 // ms — CSS transition duration per block
 
 function getBlockDelay(idx: number): number {
   const col = idx % COLS
   const row = Math.floor(idx / COLS)
-  // Bottom row (row = ROWS-1) fires first → rowOffset = 0
-  // Top row (row = 0) fires last → rowOffset = (ROWS-1)*ROW_STAGGER
+  // Bottom row (ROWS-1) fires first → rowOffset = 0
+  // Top row (0) fires last → rowOffset = (ROWS-1) * ROW_STAGGER
   const rowOffset = (ROWS - 1 - row) * ROW_STAGGER
   return col * COL_STAGGER + rowOffset
 }
 
+// Total time until the very last block finishes sliding out
 const TOTAL_WIPE_MS =
-  (COLS - 1) * COL_STAGGER + (ROWS - 1) * ROW_STAGGER + 600 // transition duration
+  (COLS - 1) * COL_STAGGER + (ROWS - 1) * ROW_STAGGER + BLOCK_DURATION + 100
 
 export function PageLoader() {
   const [count, setCount] = useState(0)
   const [phase, setPhase] = useState<"counting" | "wiping" | "done">("counting")
   const rafRef = useRef<number | null>(null)
   const startRef = useRef<number | null>(null)
-  const DURATION = 2200 // ms to count 0→100
+  const DURATION = 2200 // ms to count 0 → 100
 
-  // Phase 1 — count from 0 to 100 using requestAnimationFrame
+  // Phase 1 — animate counter from 0 to 100
   useEffect(() => {
     if (phase !== "counting") return
 
@@ -39,9 +40,10 @@ export function PageLoader() {
       const elapsed = ts - startRef.current
       const progress = Math.min(elapsed / DURATION, 1)
       // ease-in-out cubic
-      const eased = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2
       setCount(Math.floor(eased * 100))
 
       if (progress < 1) {
@@ -58,7 +60,7 @@ export function PageLoader() {
     }
   }, [phase])
 
-  // Phase 2 — all blocks get their CSS delay pre-computed; one state flip triggers all
+  // Phase 2 — wait for all block transitions to finish, then unmount
   useEffect(() => {
     if (phase !== "wiping") return
     const done = setTimeout(() => setPhase("done"), TOTAL_WIPE_MS)
@@ -68,31 +70,45 @@ export function PageLoader() {
   if (phase === "done") return null
 
   const padded = String(count).padStart(3, "0")
+  const isWiping = phase === "wiping"
 
   return (
     <div
-      className="fixed inset-0 z-[9999] overflow-hidden"
+      className="fixed inset-0"
+      style={{ zIndex: 9999 }}
       aria-hidden="true"
     >
-      {/* ── BLOCK GRID (sits above the counter, clips away during wipe) ── */}
+      {/*
+       * ── LAYER 1: BLOCK GRID (bottom of stack) ──────────────────────
+       * 10×8 solid dark blocks that cover the whole screen.
+       * When phase="wiping" each block slides UP and out of view,
+       * revealing the real page content that sits below z-9999.
+       *
+       * Each block uses translateY(-110vh) — a full viewport height —
+       * so it completely exits the screen regardless of its own height.
+       * The grid wrapper has overflow:hidden to clip the sliding blocks
+       * without affecting the counter layer above.
+       */}
       <div
-        className="absolute inset-0 grid pointer-events-none"
+        className="absolute inset-0"
         style={{
+          display: "grid",
           gridTemplateColumns: `repeat(${COLS}, 1fr)`,
           gridTemplateRows: `repeat(${ROWS}, 1fr)`,
+          overflow: "hidden",
         }}
       >
         {Array.from({ length: COLS * ROWS }).map((_, i) => {
-          const isWiping = phase === "wiping"
           const delay = getBlockDelay(i)
           return (
             <div
               key={i}
               style={{
-                background: "#0a0a0a",
-                transform: isWiping ? "translateY(-102%)" : "translateY(0%)",
+                backgroundColor: "#0a0a0a",
+                willChange: "transform",
+                transform: isWiping ? "translateY(-110vh)" : "translateY(0%)",
                 transition: isWiping
-                  ? `transform 0.55s cubic-bezier(0.76, 0, 0.24, 1) ${delay}ms`
+                  ? `transform ${BLOCK_DURATION}ms cubic-bezier(0.76, 0, 0.24, 1) ${delay}ms`
                   : "none",
               }}
             />
@@ -100,15 +116,28 @@ export function PageLoader() {
         })}
       </div>
 
-      {/* ── COUNTER (sits underneath the grid blocks) ── */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a0a] select-none">
+      {/*
+       * ── LAYER 2: COUNTER (top of stack, above block grid) ──────────
+       * The counter is always rendered on top so it's visible during
+       * counting. It fades out quickly at the start of the wipe phase
+       * before blocks begin sliding, keeping the UI clean.
+       */}
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center select-none pointer-events-none"
+        style={{
+          opacity: isWiping ? 0 : 1,
+          transition: isWiping ? "opacity 0.15s ease" : "none",
+        }}
+      >
         {/* Agency name */}
         <p
-          className="font-serif font-bold tracking-[0.3em] uppercase mb-12"
           style={{
             fontSize: "clamp(0.65rem, 1.2vw, 0.9rem)",
             color: "rgba(255,255,255,0.35)",
             letterSpacing: "0.4em",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            marginBottom: "3rem",
           }}
         >
           FORMA — Lead by Design
@@ -116,22 +145,27 @@ export function PageLoader() {
 
         {/* Giant counter */}
         <div
-          className="font-serif font-bold leading-none tabular-nums"
           style={{
             fontSize: "clamp(6rem, 22vw, 22rem)",
             color: "#ffffff",
+            fontWeight: 700,
             letterSpacing: "-0.04em",
             lineHeight: 1,
+            fontVariantNumeric: "tabular-nums",
           }}
         >
           {padded}
         </div>
 
-        {/* Thin progress bar at bottom */}
-        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/10">
+        {/* Thin progress bar */}
+        <div
+          className="absolute bottom-0 left-0 w-full"
+          style={{ height: "2px", backgroundColor: "rgba(255,255,255,0.1)" }}
+        >
           <div
-            className="h-full bg-white"
             style={{
+              height: "100%",
+              backgroundColor: "#ffffff",
               width: `${count}%`,
               transition: "width 0.05s linear",
             }}
@@ -140,8 +174,13 @@ export function PageLoader() {
 
         {/* Loading label */}
         <p
-          className="absolute bottom-6 right-8 font-sans text-[10px] tracking-[0.3em] uppercase"
-          style={{ color: "rgba(255,255,255,0.3)" }}
+          className="absolute bottom-6 right-8"
+          style={{
+            fontSize: "10px",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.3)",
+          }}
         >
           Loading
         </p>
