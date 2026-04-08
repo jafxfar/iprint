@@ -9,10 +9,12 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { CursorFollower } from "@/components/cursor-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
+import { PageLoader } from "@/components/page-loader"
 
 export default function HomePage() {
   return (
     <main className="bg-background text-foreground overflow-x-hidden">
+      <PageLoader />
       <CursorFollower />
       <ScrollProgress />
       <Navbar />
