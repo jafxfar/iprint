@@ -660,6 +660,69 @@ function ServiceDetail({
   )
 }
 
+// ─── SubList: renders sub-services using React state for visibility ──────────
+
+function SubList({
+  items,
+  activeSub,
+  onSelect,
+}: {
+  items: SubService[]
+  activeSub: SubService | null
+  onSelect: (item: SubService) => void
+}) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    // Tiny delay so React can mount the DOM nodes before we flip opacity
+    const t = setTimeout(() => setVisible(true), 20)
+    return () => clearTimeout(t)
+  }, [])
+
+  return (
+    <div className="flex flex-col pb-3">
+      {items.map((item, i) => {
+        const isActive = activeSub?.id === item.id
+        return (
+          <button
+            key={item.id}
+            onClick={() => onSelect(item)}
+            className="flex items-center justify-between py-2.5 pl-7 pr-2 text-left rounded-sm"
+            style={{
+              background: isActive ? "var(--muted)" : "transparent",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(8px)",
+              transition: `opacity 0.3s ease ${i * 40}ms, transform 0.3s ease ${i * 40}ms`,
+            }}
+          >
+            <span
+              className="text-sm text-left"
+              style={{
+                color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
+                fontWeight: isActive ? "500" : "400",
+              }}
+            >
+              {item.title}
+            </span>
+            <svg
+              width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className="shrink-0 ml-2"
+              style={{
+                opacity: isActive ? 1 : 0,
+                transform: isActive ? "translateX(0)" : "translateX(-4px)",
+                transition: "opacity 0.2s ease, transform 0.2s ease",
+                color: "var(--foreground)",
+              }}
+            >
+              <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function ServicesSection() {
@@ -739,41 +802,11 @@ export function ServicesSection() {
 
                   {/* Sub-services — inline accordion, visible only when category is open */}
                   {isOpen && (
-                    <div className="flex flex-col pb-3">
-                      {cat.items.map((item, i) => (
-                        <button
-                          key={item.id}
-                          onClick={() => setActiveSub(item)}
-                          className="flex items-center justify-between py-2.5 pl-7 pr-2 text-left transition-all duration-200 group rounded-sm"
-                          style={{
-                            background: activeSub?.id === item.id ? "var(--muted)" : "transparent",
-                            opacity: 0,
-                            animation: `fadeSlideIn 0.35s ease ${i * 35}ms forwards`,
-                          }}
-                        >
-                          <span
-                            className="text-sm transition-colors duration-200 text-left"
-                            style={{
-                              color: activeSub?.id === item.id ? "var(--foreground)" : "var(--muted-foreground)",
-                              fontWeight: activeSub?.id === item.id ? "500" : "400",
-                            }}
-                          >
-                            {item.title}
-                          </span>
-                          <svg
-                            width="12" height="12" viewBox="0 0 12 12" fill="none"
-                            className="shrink-0 transition-all duration-200 ml-2"
-                            style={{
-                              opacity: activeSub?.id === item.id ? 1 : 0,
-                              transform: activeSub?.id === item.id ? "translateX(0)" : "translateX(-4px)",
-                              color: "var(--foreground)",
-                            }}
-                          >
-                            <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </button>
-                      ))}
-                    </div>
+                    <SubList
+                      items={cat.items}
+                      activeSub={activeSub}
+                      onSelect={setActiveSub}
+                    />
                   )}
                 </div>
               )
