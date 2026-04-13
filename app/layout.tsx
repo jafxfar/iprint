@@ -15,11 +15,11 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'FORMA — Lead by Design',
+  title: 'IPrint — Lead by Design',
   description: 'Рекламное агентство нового поколения. Стратегия, дизайн и технологии для брендов, которые хотят вести.',
   generator: 'v0.app',
   openGraph: {
-    title: 'FORMA — Lead by Design',
+    title: 'IPrint — Lead by Design',
     description: 'Рекламное агентство нового поколения.',
     type: 'website',
   },

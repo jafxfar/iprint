@@ -140,7 +140,7 @@ export function PageLoader() {
             marginBottom: "3rem",
           }}
         >
-          FORMA — Lead by Design
+          IPrint — Lead by Design
         </p>
 
         {/* Giant counter */}

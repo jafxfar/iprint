@@ -7,7 +7,7 @@ export function Footer() {
         {/* Logo & tagline */}
         <div>
           <span className="font-serif font-bold text-2xl tracking-[0.15em] text-foreground uppercase">
-            FORMA
+            IPrint
           </span>
           <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">
             Lead by Design
@@ -16,7 +16,7 @@ export function Footer() {
 
         {/* Nav links */}
         <nav className="flex flex-wrap gap-8">
-          {["Work", "Services", "About", "Contact", "Privacy"].map((l) => (
+          {["Проекты", "Услуги", "О нас", "Контакты"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
@@ -44,10 +44,10 @@ export function Footer() {
       {/* Bottom */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-12 pt-8 border-t border-border">
         <p className="text-xs text-muted-foreground">
-          © {year} FORMA Agency. Все права защищены.
+          © {year} IPrint Agency. Все права защищены.
         </p>
         <p className="text-xs text-muted-foreground">
-          Москва, Россия — hello@forma-agency.ru
+          Москва, Россия — hello@IPrint-agency.ru
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export function Footer() {
           className="font-serif font-bold text-border leading-none select-none whitespace-nowrap"
           style={{ fontSize: "clamp(5rem, 20vw, 22rem)", letterSpacing: "-0.04em", opacity: 0.3 }}
         >
-          FORMA
+          IPrint
         </p>
       </div>
     </footer>
