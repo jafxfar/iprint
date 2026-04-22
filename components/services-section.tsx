@@ -3,6 +3,56 @@
 import { useState, useRef, useEffect } from "react"
 import { useInView } from "@/hooks/use-in-view"
 
+import Interior1 from "@/assets/interior-print/interior1.jpg"
+import Interior2 from "@/assets/interior-print/interior2.jpg"
+import Interior3 from "@/assets/interior-print/interior3.jpg"
+import Banner1 from "@/assets/banner-print/banner1.jpg"
+import Banner2 from "@/assets/banner-print/banner2.jpg"
+import Film1 from "@/assets/film-print/film1.jpg"
+import PressWall1 from "@/assets/press-wall/press-wall1.jpg"
+import PressWall2 from "@/assets/press-wall/press-wall2.jpg"
+import PressWall3 from "@/assets/press-wall/press-wall3.jpg"
+import GlassArt1 from "@/assets/glass-art/glass-art1.jpg"
+import GlassPrint1 from "@/assets/glass-print/glass-print1.jpg"
+import GlassPrint2 from "@/assets/glass-print/glass-print2.jpg"
+import GlassPrint3 from "@/assets/glass-print/glass-print3.jpg"
+import PVCPrint1 from "@/assets/pvc-print/pvc1.jpg"
+import PVCPrint2 from "@/assets/pvc-print/pvc2.jpg"
+import PVCPrint3 from "@/assets/pvc-print/pvc3.jpg"
+import MetalPrint1 from "@/assets/metal-print/metal1.jpg"
+import MetalPrint2 from "@/assets/metal-print/metal2.jpg"
+import WoodPrint1 from "@/assets/wood-print/wood1.jpg"
+import WoodPrint2 from "@/assets/wood-print/wood2.jpg"
+import FoamboardPrint1 from "@/assets/foamboard-print/foamboard1.jpg"
+import AcrylicPrint1 from "@/assets/acrylic-print/acrylic1.jpg"
+import CeramicPrint1 from "@/assets/ceramic-print/ceramic1.jpg"
+import CeramicPrint2 from "@/assets/ceramic-print/ceramic2.jpg"
+import CeramicPrint3 from "@/assets/ceramic-print/ceramic3.jpg"
+import PlywoodPrint1 from "@/assets/plywood-print/plywood-print1.jpg"
+import LeatherPrint1 from "@/assets/leather-print/leather-print1.jpg"
+import LeatherPrint2 from "@/assets/leather-print/leather-print2.jpg"
+import LeatherPrint3 from "@/assets/leather-print/leather-print3.jpg"
+import LeatherPrint4 from "@/assets/leather-print/leather-print4.jpg"
+
+import Sign3 from "@/assets/signs/sign3.jpg"
+import Sign4 from "@/assets/signs/sign4.jpg"
+import Sign5 from "@/assets/signs/sign5.jpg"
+import Sign6 from "@/assets/signs/sign6.jpg"
+import Sign7 from "@/assets/signs/sign7.jpg"
+import Sign8 from "@/assets/signs/sign8.jpg"
+import Sign9 from "@/assets/signs/sign9.jpg"
+import Sign10 from "@/assets/signs/sign10.jpg"
+
+import SignInterior from "@/assets/signs/sign-interior.jpg"
+import SignOutdoor from "@/assets/signs/sign-outdoor.jpg"
+import SognRoof1 from "@/assets/signs/sign-roof1.jpg"
+import SognRoof2 from "@/assets/signs/sign-roof2.jpg"
+import SignRoof4 from "@/assets/signs/sign-roof4.jpg"
+import SignLightbox from "@/assets/signs/sign-lightbox.webp"
+import SignKron from "@/assets/signs/sign-kron.jpg"
+import SignKron2 from "@/assets/signs/sign-kron2.jpg"
+import ScheduleSign1 from "@/assets/signs/schedule-sign1.jpg"
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 type SubService = {
@@ -12,7 +62,7 @@ type SubService = {
   details: string[]
   materials: string[]
   price: string
-  image: string
+  images: string[]
 }
 
 type ServiceCategory = {
@@ -39,7 +89,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Самоклеющаяся плёнка", "Холст", "Фотобумага", "PVC баннер"],
         price: "от 100 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Interior1.src, Interior2.src, Interior3.src],
       },
       {
         id: "banner-print",
@@ -54,7 +104,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Blackout баннер", "Backlit баннер", "Frontlit баннер", "Сетчатый баннер"],
         price: "от 80 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Banner2.src],
       },
       {
         id: "film-print",
@@ -69,7 +119,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Глянцевая плёнка", "Матовая плёнка", "Световозвращающая плёнка", "Текстурная плёнка"],
         price: "от 120 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Film1.src],
       },
       {
         id: "press-wall",
@@ -84,7 +134,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Баннерная ткань", "Литой баннер", "Бэклит"],
         price: "от 2 500 ₽/шт",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [PressWall3.src],
       },
     ],
   },
@@ -105,7 +155,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Прозрачное стекло", "Тонированное стекло", "Зеркало"],
         price: "от 1 200 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [GlassArt1.src, Interior1.src],
       },
       {
         id: "glass-print",
@@ -120,7 +170,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Флоат-стекло", "Закалённое стекло", "Многослойный триплекс"],
         price: "от 900 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [GlassPrint1.src, GlassPrint2.src, GlassPrint3.src],
       },
       {
         id: "pvc-print",
@@ -135,7 +185,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["ПВХ 3 мм", "ПВХ 5 мм", "ПВХ 10 мм"],
         price: "от 350 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [PVCPrint1.src, PVCPrint2.src, PVCPrint3.src],
       },
       {
         id: "metal-print",
@@ -150,7 +200,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминиевый лист", "Нержавеющая сталь", "Металлокомпозит"],
         price: "от 800 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [MetalPrint1.src, MetalPrint2.src],
       },
       {
         id: "wood-print",
@@ -165,7 +215,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Фанера", "МДФ", "Массив дерева", "Шпон"],
         price: "от 600 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [WoodPrint1.src, WoodPrint2.src],
       },
       {
         id: "foamboard-print",
@@ -180,7 +230,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Пенокартон 3 мм", "Пенокартон 5 мм", "Пенокартон 10 мм"],
         price: "от 200 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [FoamboardPrint1.src],
       },
       {
         id: "acrylic-print",
@@ -195,7 +245,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Прозрачный акрил", "Цветной акрил", "Зеркальный акрил"],
         price: "от 1 500 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [AcrylicPrint1.src],
       },
       {
         id: "ceramic-print",
@@ -210,7 +260,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Керамическая плитка", "Керамогранит", "Фаянс"],
         price: "от 2 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [CeramicPrint1.src, CeramicPrint2.src, CeramicPrint3.src],
       },
       {
         id: "plywood-print",
@@ -225,7 +275,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Фанера 4 мм", "Фанера 8 мм", "Фанера 12 мм", "Фанера 18 мм"],
         price: "от 400 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [PlywoodPrint1.src],
       },
       {
         id: "leather-print",
@@ -240,22 +290,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Натуральная кожа", "Экокожа", "Замша"],
         price: "от 1 800 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
-      },
-      {
-        id: "tactile-signs",
-        title: "Тактильные таблички",
-        description:
-          "Таблички со шрифтом Брайля и рельефными элементами для обеспечения доступной среды в соответствии с требованиями ГОСТ. Изготавливаем из ПВХ, акрила и металла.",
-        details: [
-          "Таблички для маломобильных групп населения",
-          "Навигационные системы для МГН",
-          "Эвакуационные планы с тактильными элементами",
-          "Сертификация по ГОСТ Р 51671",
-        ],
-        materials: ["ПВХ", "Акрил", "Металл", "Фотополимер"],
-        price: "от 450 ₽/шт",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [LeatherPrint1.src, LeatherPrint2.src, LeatherPrint3.src, LeatherPrint4.src],
       },
     ],
   },
@@ -276,7 +311,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["LED-модули", "Акрил", "Алюминиевый профиль", "Нержавеющая сталь"],
         price: "от 8 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign7.src, Sign3.src],
       },
       {
         id: "led-signs",
@@ -291,7 +326,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["LED-лента", "Flex-неон", "LED-модули", "Контроллеры"],
         price: "от 5 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign10.src],
       },
       {
         id: "interior-signs",
@@ -306,7 +341,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Акрил", "Нержавеющая сталь", "МДФ", "Стекло"],
         price: "от 3 500 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [SignInterior.src],
       },
       {
         id: "facade-signs",
@@ -321,7 +356,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминиевый композит", "Нержавеющая сталь", "Акрил", "ПВХ"],
         price: "от 12 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign6.src, Sign4.src],
       },
       {
         id: "shop-signs",
@@ -336,7 +371,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминий", "Акрил", "Баннерная ткань", "Самоклеющаяся плёнка"],
         price: "от 15 000 ₽/комплект",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign5.src],
       },
       {
         id: "outdoor-signs",
@@ -351,7 +386,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Оцинкованный металл", "Алюминий", "Стойкие баннерные ткани"],
         price: "от 6 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [SignOutdoor.src],
       },
       {
         id: "lightbox",
@@ -366,22 +401,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминиевый профиль", "Бэклит-баннер", "LED-панели", "Акрил"],
         price: "от 4 500 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
-      },
-      {
-        id: "light-box",
-        title: "Световые короба",
-        description:
-          "Световые короба с внутренней LED-подсветкой для вывесок, меню, рекламных стендов. Изготавливаем любые нестандартные форматы и конфигурации.",
-        details: [
-          "Фасадные световые короба",
-          "Подвесные интерьерные конструкции",
-          "Короба-логотипы с фигурным обрамлением",
-          "Двусторонние консольные конструкции",
-        ],
-        materials: ["Алюминиевый профиль", "Акрил", "Backlit-плёнка", "LED"],
-        price: "от 5 500 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [SignLightbox.src],
       },
       {
         id: "panel-bracket",
@@ -396,7 +416,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминий", "Оцинкованная сталь", "Акрил"],
         price: "от 7 000 ₽/шт",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [SignKron.src, SignKron2.src],
       },
       {
         id: "3d-letters",
@@ -411,22 +431,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Нержавеющая сталь", "Акрил", "АБС-пластик", "Медь/латунь"],
         price: "от 3 000 ₽/буква",
-        image: "/placeholder.svg?height=480&width=720",
-      },
-      {
-        id: "backlit-letters",
-        title: "Буквы с контражурной подсветкой",
-        description:
-          "Контражурная подсветка (гало-эффект) создаёт ореол света вокруг букв. Это премиальное решение для имиджевых вывесок отелей, банков и luxury-брендов.",
-        details: [
-          "Гало-подсветка на любую глубину буквы",
-          "Цвет свечения по RAL или Pantone",
-          "Металлические и акриловые буквы",
-          "Монтаж на фасад или интерьерную стену",
-        ],
-        materials: ["Нержавеющая сталь", "Покрашенный алюминий", "LED"],
-        price: "от 5 000 ₽/буква",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign8.src],
       },
       {
         id: "sign-letters",
@@ -441,7 +446,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Акрил", "ПВХ", "Нержавеющая сталь", "Алюминий"],
         price: "от 800 ₽/буква",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [Sign9.src],
       },
       {
         id: "roof-constructions",
@@ -456,7 +461,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Конструкционная сталь", "Нержавеющая сталь", "LED"],
         price: "от 50 000 ₽/проект",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [SognRoof2.src,SognRoof1.src, SignRoof4.src],
       },
     ],
   },
@@ -477,7 +482,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Акрил", "ПВХ", "Алюминий", "Нержавеющая сталь"],
         price: "от 300 ₽/шт",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [ScheduleSign1.src],
       },
     ],
   },
@@ -498,37 +503,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминиевая система", "МДФ", "Акрил", "Баннерная ткань"],
         price: "от 35 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
-      },
-      {
-        id: "stand-design",
-        title: "Дизайн стендов на выставку",
-        description:
-          "Полный цикл дизайна выставочного стенда: концепция, разработка, визуализация и подготовка к производству. Учитываем требования конкретной выставочной площадки.",
-        details: [
-          "Концепт-дизайн в 2-3 вариантах",
-          "3D-визуализация стенда",
-          "Подготовка конструкторской документации",
-          "Сопровождение производства",
-        ],
-        materials: ["Цифровые файлы", "Конструкторская документация"],
-        price: "от 15 000 ₽",
-        image: "/placeholder.svg?height=480&width=720",
-      },
-      {
-        id: "exhibition-build",
-        title: "Застройка выставки",
-        description:
-          "Профессиональная застройка выставочного пространства под ключ. Организуем всё — от доставки материалов до финальной уборки после мероприятия.",
-        details: [
-          "Монтаж конструкций по плану площадки",
-          "Электромонтаж и осветительное оборудование",
-          "Расстановка мебели и экспонатов",
-          "Дежурство во время выставки",
-        ],
-        materials: ["Монтажные материалы", "Электрофурнитура"],
-        price: "от 5 000 ₽/м²",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [PressWall1.src],
       },
       {
         id: "mobile-stands",
@@ -543,7 +518,7 @@ const services: ServiceCategory[] = [
         ],
         materials: ["Алюминиевый каркас", "Баннерная ткань", "Пластиковые соединители"],
         price: "от 3 500 ₽/шт",
-        image: "/placeholder.svg?height=480&width=720",
+        images: [PressWall2.src,Banner1.src],
       },
     ],
   },
@@ -559,6 +534,13 @@ function ServiceDetail({
   onClose: () => void
 }) {
   const panelRef = useRef<HTMLDivElement>(null)
+  const [imageIndex, setImageIndex] = useState(0)
+  const images = sub.images
+  const hasGallery = images.length > 1
+
+  useEffect(() => {
+    setImageIndex(0)
+  }, [sub.id])
 
   // Animate in
   useEffect(() => {
@@ -590,13 +572,70 @@ function ServiceDetail({
         Назад к услугам
       </button>
 
-      {/* Image */}
-      <div className="w-full aspect-video bg-muted overflow-hidden mb-8">
+      {/* Image / gallery */}  
+      <div className="relative w-full aspect-video bg-muted overflow-hidden mb-8">
         <img
-          src={sub.image}
-          alt={sub.title}
+          src={images[imageIndex] ?? images[0]}
+          alt={hasGallery ? `${sub.title} — фото ${imageIndex + 1}` : sub.title}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
+        {hasGallery && (
+          <>
+            <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-3 pointer-events-none">
+              <button
+                type="button"
+                onClick={() =>
+                  setImageIndex((i) => (i - 1 + images.length) % images.length)
+                }
+                className="pointer-events-auto flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 border border-border bg-background/90 text-foreground hover:bg-muted transition-colors duration-200"
+                aria-label="Предыдущее фото"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M10 12L6 8l4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => setImageIndex((i) => (i + 1) % images.length)}
+                className="pointer-events-auto flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 border border-border bg-background/90 text-foreground hover:bg-muted transition-colors duration-200"
+                aria-label="Следующее фото"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M6 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 pointer-events-none">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setImageIndex(i)}
+                  className={`pointer-events-auto h-1.5 rounded-full transition-all duration-200 ${
+                    i === imageIndex
+                      ? "w-6 bg-foreground"
+                      : "w-1.5 bg-foreground/30 hover:bg-foreground/50"
+                  }`}
+                  aria-label={`Фото ${i + 1}`}
+                  aria-current={i === imageIndex}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Title */}
