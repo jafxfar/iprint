@@ -1,34 +1,34 @@
 const clients = [
-  "Сбербанк",
-  "Яндекс",
-  "VK Group",
-  "Тинькофф",
-  "Ozon",
-  "Wildberries",
-  "Avito",
-  "Mail.ru",
-  "Ростелеком",
-  "МТС",
+  "Эсхата Банк",
+  "Далерон",
+  "Фаровон",
+  "Roller",
+  "Silk Road",
+  "Банк Арванд",
+  "Ориён Банк",
+  "Амонат Бонк",
+  "American Space",
+  "Giavoni",
 ]
 
 const testimonials = [
   {
     quote:
       "IPrint полностью переосмыслила нашу идентичность. Результат превзошёл все ожидания — вовлечённость выросла на 340% за первый квартал.",
-    author: "Анна К.",
-    role: "CMO, Vella Retail",
+    author: "Юрий К.",
+    role: "Дизайнер, Эсхата Банк",
   },
   {
     quote:
       "Команда не просто делает красиво — они понимают бизнес. Стратегия плюс исполнение на высшем уровне.",
-    author: "Михаил Р.",
-    role: "CEO, Meridian Finance",
+    author: "Шерзод Д.",
+    role: "IT-специалист, Далерон",
   },
   {
     quote:
       "Лучшее рекламное агентство, с которым мы работали. Честность, скорость, качество — редкое сочетание.",
-    author: "Екатерина В.",
-    role: "Brand Director, Aura Health",
+    author: "Хусрав",
+    role: "HR, Фаровон",
   },
 ]
 
@@ -38,7 +38,7 @@ export function ClientsSection() {
       <div className="max-w-screen-2xl mx-auto">
         {/* Label */}
         <p className="text-xs tracking-[0.25em] uppercase text-surface-light-foreground/50 mb-16 text-center">
-          Trusted by Leaders
+          Наши клиенты
         </p>
 
         {/* Client logos text */}
