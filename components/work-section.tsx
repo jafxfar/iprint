@@ -89,17 +89,14 @@ export function WorkSection() {
           transitionDuration: "800ms",
         }}
       >
-        <div>
-          <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">
-            Selected Work
-          </p>
+        
           <h2
             className="font-serif font-bold text-foreground leading-none"
             style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)", letterSpacing: "-0.02em" }}
           >
-            Our Work
+            Наши проекты
           </h2>
-        </div>
+        
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
@@ -134,17 +131,6 @@ export function WorkSection() {
             />
           )
         })}
-      </div>
-
-      {/* View all */}
-      <div className="text-center mt-16">
-        <a
-          href="#"
-          className="inline-flex items-center gap-3 text-sm tracking-widest uppercase border border-border px-10 py-4 text-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300"
-        >
-          View All Projects
-          <span>↗</span>
-        </a>
       </div>
     </section>
   )

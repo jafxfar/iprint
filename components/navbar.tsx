@@ -52,7 +52,7 @@ export function Navbar() {
             href="#contact"
             className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase border border-foreground px-5 py-2.5 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
           >
-            Start a Project
+            Начать проект
             <span className="text-accent">↗</span>
           </a>
 
@@ -95,7 +95,7 @@ export function Navbar() {
           onClick={() => setMenuOpen(false)}
           className="mt-6 text-sm tracking-widest uppercase border border-foreground px-8 py-3 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
         >
-          Start a Project
+          Начать проект
         </a>
       </div>
     </>

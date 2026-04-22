@@ -140,7 +140,7 @@ export function PageLoader() {
             marginBottom: "3rem",
           }}
         >
-          IPrint — Lead by Design
+          IPrint — Дизайн как основа лидерства
         </p>
 
         {/* Giant counter */}

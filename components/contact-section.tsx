@@ -45,8 +45,7 @@ export function ContactSection() {
             className="font-serif font-bold text-foreground leading-none text-balance"
             style={{ fontSize: "clamp(3rem, 10vw, 11rem)", letterSpacing: "-0.03em" }}
           >
-            Start a<br />
-            <span className="text-accent italic">Project.</span>
+            Начать проект
           </h2>
         </div>
       </div>
@@ -79,7 +78,7 @@ export function ContactSection() {
           >
             <div>
               <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-4">
-                Get in touch
+                Связаться с нами
               </p>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-sm">
                 Расскажите нам о вашем проекте. Мы свяжемся в течение 24 часов и предложим стратегию.
@@ -88,9 +87,9 @@ export function ContactSection() {
 
             <div className="flex flex-col gap-6">
               {[
-                { label: "Email", val: "hello@forma-agency.ru" },
-                { label: "Phone", val: "+7 (495) 000-00-00" },
-                { label: "Location", val: "Москва, Россия" },
+                { label: "Почта", val: "INFO@IPRINT.TJ" },
+                { label: "Телефон", val: "+992 (92) 882-99-55\n+992 (92) 772-99-55" },
+                { label: "Адрес", val: "г. Худжанд, Таджикистан" },
               ].map(({ label, val }, i) => (
                 <div
                   key={label}
@@ -104,19 +103,30 @@ export function ContactSection() {
                   <p className="text-xs tracking-widest uppercase text-muted-foreground mb-1">
                     {label}
                   </p>
-                  <p className="text-foreground font-medium">{val}</p>
+                  <p className="text-foreground font-medium whitespace-pre-line">{val}</p>
                 </div>
               ))}
             </div>
 
-            <div className="flex gap-6">
-              {["Instagram", "Telegram", "LinkedIn", "Behance"].map((soc) => (
+            <div className="flex flex-wrap gap-6">
+              {[
+                {
+                  label: "Instagram",
+                  href: "https://www.instagram.com/iprint_9955/",
+                },
+                {
+                  label: "Telegram",
+                  href: "https://t.me/iprint_tj1",
+                },
+              ].map(({ label, href }) => (
                 <a
-                  key={soc}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  {soc}
+                  {label}
                 </a>
               ))}
             </div>
@@ -133,9 +143,27 @@ export function ContactSection() {
             }}
           >
             {[
-              { name: "name", label: "Your Name", type: "text", required: true },
-              { name: "company", label: "Company", type: "text", required: false },
-              { name: "email", label: "Email Address", type: "email", required: true },
+              {
+                name: "name",
+                label: "Ваше имя",
+                type: "text",
+                required: true,
+                placeholder: "Иван Иванов",
+              },
+              {
+                name: "company",
+                label: "Компания",
+                type: "text",
+                required: false,
+                placeholder: "Название компании",
+              },
+              {
+                name: "email",
+                label: "Электронная почта",
+                type: "email",
+                required: true,
+                placeholder: "you@company.ru",
+              },
             ].map((field, i) => (
               <div
                 key={field.name}
@@ -157,7 +185,7 @@ export function ContactSection() {
                   onChange={handleChange}
                   required={field.required}
                   className="w-full bg-transparent text-foreground text-base outline-none placeholder:text-muted-foreground/40"
-                  placeholder={`Enter ${field.label.toLowerCase()}`}
+                  placeholder={field.placeholder}
                 />
               </div>
             ))}
@@ -171,7 +199,7 @@ export function ContactSection() {
               }}
             >
               <label className="block text-xs tracking-widest uppercase text-muted-foreground mb-2">
-                Budget Range
+                Бюджет проекта
               </label>
               <select
                 name="budget"
@@ -179,11 +207,11 @@ export function ContactSection() {
                 onChange={handleChange}
                 className="w-full bg-transparent text-foreground text-base outline-none"
               >
-                <option value="">Select budget</option>
-                <option value="<500k">До 500 000 ₽</option>
-                <option value="500k-2m">500 000 — 2 000 000 ₽</option>
-                <option value="2m-10m">2 000 000 — 10 000 000 ₽</option>
-                <option value="10m+">Более 10 000 000 ₽</option>
+                <option value="">Выберите диапазон</option>
+                <option value="<1k">До 1 000 c</option>
+                <option value="1k-10k">1 000 — 10 000 c</option>
+                <option value="10k-50k">10 000 — 50 000 c</option>
+                <option value="50k+">Более 50 000 c</option>
               </select>
             </div>
 
@@ -196,7 +224,7 @@ export function ContactSection() {
               }}
             >
               <label className="block text-xs tracking-widest uppercase text-muted-foreground mb-2">
-                Message <span className="text-accent">*</span>
+                Сообщение <span className="text-accent">*</span>
               </label>
               <textarea
                 name="message"
@@ -205,7 +233,7 @@ export function ContactSection() {
                 required
                 rows={4}
                 className="w-full bg-transparent text-foreground text-base outline-none resize-none placeholder:text-muted-foreground/40"
-                placeholder="Tell us about your project..."
+                placeholder="Опишите задачу, сроки и ожидания…"
               />
             </div>
 
@@ -220,7 +248,7 @@ export function ContactSection() {
                 type="submit"
                 className="mt-8 w-full md:w-auto self-start inline-flex items-center justify-center gap-3 text-sm tracking-widest uppercase bg-foreground text-background px-12 py-5 hover:bg-accent hover:text-accent-foreground transition-all duration-300 font-medium group"
               >
-                Send Request
+                Отправить заявку
                 <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
               </button>
             </div>

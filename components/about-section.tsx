@@ -3,10 +3,10 @@
 import { useInView, useCountUp } from "@/hooks/use-in-view"
 
 const stats = [
-  { num: 2018, suffix: "", label: "Founded" },
-  { num: 45, suffix: "+", label: "Team members" },
-  { num: 12, suffix: "", label: "Industries served" },
-  { num: 4, suffix: "×", label: "Award winner" },
+  { num: 2014, suffix: "", label: "Год основания" },
+  { num: 10, suffix: "+", label: "Сотрудников" },
+  { num: 12, suffix: "", label: "Отраслей" },
+  { num: 4, suffix: "×", label: "Наград" },
 ]
 
 function StatItem({ num, suffix, label, inView }: { num: number; suffix: string; label: string; inView: boolean }) {
@@ -43,7 +43,7 @@ export function AboutSection() {
           }}
           ref={sectionRef as React.RefObject<HTMLParagraphElement>}
         >
-          About the Agency
+          О нас
         </p>
 
         {/* Main copy */}
@@ -60,7 +60,7 @@ export function AboutSection() {
               className="font-serif font-bold leading-tight text-balance"
               style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", letterSpacing: "-0.02em" }}
             >
-              Творческая компания, выбранная лидерами для создания завтрашнего дня.
+              Партнёр в создании завтрашнего дня
             </h2>
           </div>
 
@@ -80,12 +80,12 @@ export function AboutSection() {
               Наша команда объединяет опытных специалистов, современные технологии печати и креативный подход к каждому проекту.
               Мы понимаем, что реклама — это не просто изображение или текст, это инструмент, который помогает бизнесу расти, привлекать клиентов и создавать сильный бренд.
             </p>
-            <a
+            {/* <a
               href="#contact"
               className="self-start inline-flex items-center gap-3 text-sm tracking-widest uppercase border border-surface-light-foreground/30 px-8 py-3 text-surface-light-foreground hover:bg-surface-light-foreground hover:text-surface-light transition-all duration-300 mt-4"
             >
               Our Story ↗
-            </a>
+            </a> */}
           </div>
         </div>
 

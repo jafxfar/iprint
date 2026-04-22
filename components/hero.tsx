@@ -132,10 +132,10 @@ export function Hero() {
         {/* Top row */}
         <Reveal delay={200} className="flex items-start justify-between">
           <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">
-            Est. 2018 — Moscow
+            С 2014 года — Худжанд
           </p>
           <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground text-right">
-            Design & Strategy
+            Типография и рекламное агентство
           </p>
         </Reveal>
 
@@ -148,7 +148,7 @@ export function Hero() {
                   className="font-serif font-bold leading-none text-foreground"
                   style={{ fontSize: "clamp(3.5rem, 12vw, 14rem)", letterSpacing: "-0.02em" }}
                 >
-                  Lead by
+                  Ваше преимущество 
                 </h1>
               </Reveal>
             </div>
@@ -158,7 +158,7 @@ export function Hero() {
                   className="font-serif font-bold leading-none"
                   style={{ fontSize: "clamp(3.5rem, 12vw, 14rem)", letterSpacing: "-0.02em" }}
                 >
-                  <span className="text-accent italic">Design.</span>
+                  <span className="text-accent italic">в дизайне</span>
                 </h1>
               </Reveal>
             </div>
@@ -173,7 +173,7 @@ export function Hero() {
                 className="group inline-flex items-center gap-3 text-sm tracking-widest uppercase text-foreground self-start md:self-auto"
               >
                 <span className="h-px w-12 bg-foreground group-hover:w-20 transition-all duration-500" />
-                View Work
+                Наши проекты
               </a>
             </Reveal>
           </div>
@@ -183,9 +183,9 @@ export function Hero() {
         <Reveal delay={900} className="flex items-end justify-between pt-12 border-t border-border">
           <div className="flex gap-12">
             {[
-              { num: "25+", label: "Years" },
-              { num: "200+", label: "Projects" },
-              { num: "98%", label: "Retention" },
+              { num: "22+", label: "лет" },
+              { num: "1000+", label: "проектов" },
+              { num: "99%", label: "удовлетворенных клиентов" },
             ].map(({ num, label }) => (
               <div key={label}>
                 <p className="font-serif font-bold text-3xl text-foreground">{num}</p>
@@ -193,30 +193,30 @@ export function Hero() {
               </div>
             ))}
           </div>
-          <div className="hidden md:flex items-center gap-4">
-            <span className="text-xs tracking-[0.25em] uppercase text-muted-foreground">Scroll</span>
-            <span
-              className="h-12 w-px bg-border"
-              style={{ animation: "scrollPulse 2s ease-in-out infinite" }}
-            />
-          </div>
         </Reveal>
       </div>
 
-      {/* Parallax background letter (still visible over video, very subtle) */}
+      {/* Decorative parallax watermark */}
       <div
         ref={bgLetterRef}
-        className="absolute right-0 top-1/2 font-serif font-bold leading-none text-foreground select-none pointer-events-none z-10"
+        className="absolute right-0 top-1/2 flex items-center justify-end select-none pointer-events-none z-10"
         style={{
-          fontSize: "clamp(8rem, 28vw, 36rem)",
-          letterSpacing: "-0.05em",
+          height: "clamp(6.4rem, 22.4vw, 28.8rem)",
+          width: "clamp(6.4rem, 22.4vw, 28.8rem)",
           opacity: 0.08,
           transform: "translateY(-50%)",
           transition: "transform 0.05s linear",
         }}
         aria-hidden="true"
       >
-        F
+        <svg
+          viewBox="0 0 24 24"
+          className="h-full w-full shrink-0"
+          fill="#86868b"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,21.97C7.79,22 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.06,3.17 15.62,4.31 14.92,5.08C14.26,5.92 13.06,6.61 11.93,6.53C11.76,5.43 12.37,4.43 13,3.5Z" />
+        </svg>
       </div>
     </section>
   )

@@ -1,12 +1,17 @@
 const items = [
-  "AI Strategy",
-  "Brand Identity",
-  "Product Design",
-  "Motion & Film",
-  "Digital Campaigns",
-  "Growth Marketing",
-  "UX Research",
-  "Content Strategy",
+  "Широкоформатная печать",
+  "Интерьерная печать",
+  "Баннерная печать",
+  "Таблички",
+  "Печать на стекле",
+  "Печать на металле",
+  "Печать на дереве",
+  "Лайтбоксы",
+  "Визитки",
+  "Фотопечать",
+  "Панель-кронштейны",
+  "Пресс-стены",
+  "Стенды",
 ]
 
 export function MarqueeTicker({ inverted = false }: { inverted?: boolean }) {
