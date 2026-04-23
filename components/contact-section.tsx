@@ -45,14 +45,14 @@ export function ContactSection() {
             className="font-serif font-bold text-foreground leading-none text-balance"
             style={{ fontSize: "clamp(3rem, 10vw, 11rem)", letterSpacing: "-0.03em" }}
           >
-            Начать проект
+            Начать <span className="text-brand italic">проект</span>
           </h2>
         </div>
       </div>
 
       {submitted ? (
         <div
-          className="border border-accent p-12 max-w-lg"
+          className="border border-brand p-12 max-w-lg"
           style={{ animation: "fadeUp 0.6s ease forwards" }}
         >
           <p className="font-serif font-bold text-3xl text-foreground mb-4">
@@ -93,7 +93,7 @@ export function ContactSection() {
               ].map(({ label, val }, i) => (
                 <div
                   key={label}
-                  className="border-t border-border pt-4"
+                  className="border-l-2 border-brand pl-4"
                   style={{
                     opacity: formInView ? 1 : 0,
                     transform: formInView ? "translateY(0)" : "translateY(20px)",
@@ -124,8 +124,9 @@ export function ContactSection() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full"
+                  className="group inline-flex items-center gap-2 text-xs tracking-widest uppercase text-muted-foreground hover:text-brand transition-colors duration-300"
                 >
+                  <span className="w-4 h-px bg-muted-foreground group-hover:w-6 group-hover:bg-brand transition-all duration-300" />
                   {label}
                 </a>
               ))}
@@ -165,9 +166,9 @@ export function ContactSection() {
                 placeholder: "you@company.ru",
               },
             ].map((field, i) => (
-              <div
-                key={field.name}
-                className="border-b border-border py-5 focus-within:border-foreground transition-colors duration-300"
+        <div
+              key={field.name}
+              className="border-b border-border py-5 focus-within:border-brand transition-colors duration-300"
                 style={{
                   opacity: formInView ? 1 : 0,
                   transform: formInView ? "translateY(0)" : "translateY(24px)",
@@ -176,7 +177,7 @@ export function ContactSection() {
               >
                 <label className="block text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   {field.label}
-                  {field.required && <span className="text-accent ml-1">*</span>}
+                  {field.required && <span className="text-brand ml-1">*</span>}
                 </label>
                 <input
                   type={field.type}
@@ -191,7 +192,7 @@ export function ContactSection() {
             ))}
 
             <div
-              className="border-b border-border py-5 focus-within:border-foreground transition-colors duration-300"
+              className="border-b border-border py-5 focus-within:border-brand transition-colors duration-300"
               style={{
                 opacity: formInView ? 1 : 0,
                 transform: formInView ? "translateY(0)" : "translateY(24px)",
@@ -216,7 +217,7 @@ export function ContactSection() {
             </div>
 
             <div
-              className="border-b border-border py-5 focus-within:border-foreground transition-colors duration-300"
+              className="border-b border-border py-5 focus-within:border-brand transition-colors duration-300"
               style={{
                 opacity: formInView ? 1 : 0,
                 transform: formInView ? "translateY(0)" : "translateY(24px)",
@@ -224,7 +225,7 @@ export function ContactSection() {
               }}
             >
               <label className="block text-xs tracking-widest uppercase text-muted-foreground mb-2">
-                Сообщение <span className="text-accent">*</span>
+                Сообщение <span className="text-brand">*</span>
               </label>
               <textarea
                 name="message"
@@ -246,7 +247,7 @@ export function ContactSection() {
             >
               <button
                 type="submit"
-                className="mt-8 w-full md:w-auto self-start inline-flex items-center justify-center gap-3 text-sm tracking-widest uppercase bg-foreground text-background px-12 py-5 hover:bg-accent hover:text-accent-foreground transition-all duration-300 font-medium group"
+                className="mt-8 w-full md:w-auto self-start inline-flex items-center justify-center gap-3 text-sm tracking-widest uppercase bg-foreground text-background px-12 py-5 hover:bg-brand hover:text-brand-foreground transition-all duration-300 font-medium group"
               >
                 Отправить заявку
                 <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
