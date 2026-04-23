@@ -101,7 +101,7 @@ export function WorkSection() {
             className="font-serif font-bold text-foreground leading-none"
             style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)", letterSpacing: "-0.02em" }}
           >
-            Наши проекты
+            Наши <span className="text-brand italic">проекты</span>
           </h2>
         
 
@@ -172,24 +172,26 @@ function ProjectCard({
         <img
           src={project.img}
           alt={project.title}
-          className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+          className="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
         />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-500" />
+        {/* Dark overlay fades out on hover */}
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500" />
+        {/* Brand green left-edge accent bar */}
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500" />
         {/* Project number */}
-        <span className={`absolute top-6 left-6 font-mono text-xs tracking-widest ${project.textColor} opacity-60`}>
+        <span className={`absolute top-6 left-6 font-mono text-xs tracking-widest ${project.textColor} opacity-60 group-hover:opacity-0 transition-opacity duration-300`}>
           {project.id}
         </span>
-        {/* Arrow slides in on hover */}
-        <span className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-foreground text-xl">
+        {/* Arrow badge — slides in from top-right */}
+        <span className="absolute top-6 right-6 w-9 h-9 flex items-center justify-center bg-brand text-brand-foreground opacity-0 group-hover:opacity-100 translate-y-[-8px] group-hover:translate-y-0 transition-all duration-300 text-base font-bold">
           ↗
         </span>
         {/* Category tag slides up on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-background/80 backdrop-blur-sm">
-          <p className="text-xs tracking-widest uppercase text-foreground/70">{project.category}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-foreground/85 backdrop-blur-sm">
+          <p className="text-xs tracking-widest uppercase text-brand">{project.category}</p>
         </div>
       </div>
-      <div className="pt-5 pb-8 border-b border-border">
+      <div className="pt-5 pb-8 border-b border-border group-hover:border-brand transition-colors duration-500">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="font-serif font-bold text-foreground text-2xl mb-1 group-hover:text-brand transition-colors duration-300">
@@ -197,7 +199,7 @@ function ProjectCard({
             </h3>
             <p className="text-sm text-muted-foreground">{project.category}</p>
           </div>
-          <span className="text-xs tracking-widest uppercase text-brand mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="flex items-center gap-1 text-xs tracking-widest uppercase text-brand mt-1 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
             View ↗
           </span>
         </div>

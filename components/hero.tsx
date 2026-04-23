@@ -158,7 +158,7 @@ export function Hero() {
                   className="font-serif font-bold leading-none"
                   style={{ fontSize: "clamp(3.5rem, 12vw, 14rem)", letterSpacing: "-0.02em" }}
                 >
-                  <span className="text-accent italic">в дизайне</span>
+                  <span className="text-brand italic">в дизайне</span>
                 </h1>
               </Reveal>
             </div>
@@ -180,19 +180,35 @@ export function Hero() {
         </div>
 
         {/* Bottom stats row */}
-        <Reveal delay={900} className="flex items-end justify-between pt-12 border-t border-border">
+        <Reveal delay={900} className="flex items-end justify-between pt-12 border-t border-brand/30">
           <div className="flex gap-12">
             {[
               { num: "22+", label: "лет" },
               { num: "1000+", label: "проектов" },
               { num: "99%", label: "удовлетворенных клиентов" },
-            ].map(({ num, label }) => (
-              <div key={label}>
+            ].map(({ num, label }, i) => (
+              <div
+                key={label}
+                className="animate-count-up"
+                style={{ animationDelay: `${900 + i * 120}ms` }}
+              >
                 <p className="font-serif font-bold text-3xl text-brand">{num}</p>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">{label}</p>
               </div>
             ))}
           </div>
+          {/* Brand scroll indicator */}
+          <a
+            href="#work"
+            aria-label="Прокрутить вниз"
+            className="hidden md:flex flex-col items-center gap-2 text-brand hover:opacity-70 transition-opacity duration-300"
+          >
+            <span className="text-xs tracking-widest uppercase text-brand">Scroll</span>
+            <span
+              className="block w-px h-12 bg-brand origin-top"
+              style={{ animation: "scrollPulse 1.8s ease-in-out infinite" }}
+            />
+          </a>
         </Reveal>
       </div>
 

@@ -45,7 +45,7 @@ export function ContactSection() {
             className="font-serif font-bold text-foreground leading-none text-balance"
             style={{ fontSize: "clamp(3rem, 10vw, 11rem)", letterSpacing: "-0.03em" }}
           >
-            Начать проект
+            Начать <span className="text-brand italic">проект</span>
           </h2>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function ContactSection() {
               ].map(({ label, val }, i) => (
                 <div
                   key={label}
-                  className="border-t border-border pt-4"
+                  className="border-l-2 border-brand pl-4"
                   style={{
                     opacity: formInView ? 1 : 0,
                     transform: formInView ? "translateY(0)" : "translateY(20px)",
@@ -124,8 +124,9 @@ export function ContactSection() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full"
+                  className="group inline-flex items-center gap-2 text-xs tracking-widest uppercase text-muted-foreground hover:text-brand transition-colors duration-300"
                 >
+                  <span className="w-4 h-px bg-muted-foreground group-hover:w-6 group-hover:bg-brand transition-all duration-300" />
                   {label}
                 </a>
               ))}
