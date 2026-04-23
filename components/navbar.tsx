@@ -28,7 +28,7 @@ export function Navbar() {
           {/* Logo */}
           <a
             href="#"
-            className="font-serif font-bold text-lg tracking-[0.2em] text-foreground uppercase"
+            className="font-serif font-bold text-lg tracking-[0.2em] text-foreground uppercase hover:text-brand transition-colors duration-300"
           >
             IPrint
           </a>
@@ -39,9 +39,10 @@ export function Navbar() {
               <li key={link.id}>
                 <a
                   href={`#${link.id}`}
-                  className="text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  className="group relative text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
                 >
                   {link.label}
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand group-hover:w-full transition-all duration-300" />
                 </a>
               </li>
             ))}
@@ -50,10 +51,10 @@ export function Navbar() {
           {/* CTA */}
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase border border-foreground px-5 py-2.5 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+            className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase border border-foreground px-5 py-2.5 text-foreground hover:bg-brand hover:text-brand-foreground hover:border-brand transition-all duration-300"
           >
             Начать проект
-            <span className="text-accent">↗</span>
+            <span>↗</span>
           </a>
 
           {/* Burger */}
@@ -80,20 +81,22 @@ export function Navbar() {
         className={`fixed inset-0 z-40 bg-background flex flex-col justify-center items-center gap-10 transition-all duration-500 md:hidden ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
       >
-        {navLinks.map((link) => (
+        {navLinks.map((link, i) => (
           <a
             key={link.id}
             href={`#${link.id}`}
             onClick={() => setMenuOpen(false)}
-            className="font-serif text-5xl font-bold text-foreground tracking-tight hover:text-accent transition-colors"
+            className="group font-serif text-5xl font-bold text-foreground tracking-tight hover:text-brand transition-colors duration-300"
+            style={{ transitionDelay: `${i * 60}ms` }}
           >
             {link.label}
+            <span className="block h-0.5 w-0 bg-brand group-hover:w-full transition-all duration-400" />
           </a>
         ))}
         <a
           href="#contact"
           onClick={() => setMenuOpen(false)}
-          className="mt-6 text-sm tracking-widest uppercase border border-foreground px-8 py-3 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+          className="mt-6 text-sm tracking-widest uppercase border border-brand bg-brand text-brand-foreground px-8 py-3 hover:bg-foreground hover:border-foreground hover:text-background transition-all duration-300"
         >
           Начать проект
         </a>

@@ -21,8 +21,15 @@ export function Footer() {
         aria-hidden="true"
       >
         <p
-          className="font-serif font-bold text-border leading-none select-none whitespace-nowrap"
-          style={{ fontSize: "clamp(5rem, 20vw, 22rem)", letterSpacing: "-0.04em", opacity: 0.3 }}
+          className="font-serif font-bold leading-none select-none whitespace-nowrap"
+          style={{
+            fontSize: "clamp(5rem, 20vw, 22rem)",
+            letterSpacing: "-0.04em",
+            opacity: 0.12,
+            background: "linear-gradient(90deg, var(--foreground) 60%, var(--brand) 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
         >
           IPrint
         </p>
