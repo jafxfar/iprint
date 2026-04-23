@@ -14,7 +14,7 @@ function StatItem({ num, suffix, label, inView }: { num: number; suffix: string;
   return (
     <div className="py-10 px-6 border-r border-b border-surface-light-foreground/10 last:border-r-0">
       <p
-        className="font-serif font-bold text-surface-light-foreground leading-none"
+        className="font-serif font-bold text-[#65B337] leading-none"
         style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)" }}
       >
         {count}{suffix}
@@ -36,7 +36,7 @@ export function AboutSection() {
       <div className="max-w-screen-2xl mx-auto px-8 py-24">
         {/* Top label */}
         <p
-          className="text-xs tracking-[0.25em] uppercase text-surface-light-foreground/50 mb-16 transition-all duration-700"
+          className="text-xs tracking-[0.25em] uppercase text-[#65B337] mb-16 transition-all duration-700"
           style={{
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0)" : "translateY(20px)",

@@ -671,7 +671,7 @@ function ServiceDetail({
           {sub.materials.map((m) => (
             <span
               key={m}
-              className="text-xs px-3 py-1.5 border border-border text-foreground"
+              className="text-xs px-3 py-1.5 border border-border bg-[#65B337] text-white"
             >
               {m}
             </span>
@@ -784,9 +784,9 @@ export function ServicesSection() {
         }}
       >
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-4">Что мы делаем</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#65B337] mb-4">Что мы делаем</p>
           <h2
-            className="font-serif font-bold text-foreground leading-none"
+            className="font-serif font-bold text-[#65B337] leading-none"
             style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)", letterSpacing: "-0.03em" }}
           >
             Услуги
@@ -815,7 +815,7 @@ export function ServicesSection() {
                     }}
                     className="w-full flex items-center justify-between py-4 text-left group transition-colors duration-200"
                     style={{
-                      color: isOpen ? "var(--foreground)" : "var(--muted-foreground)",
+                      color: isOpen ? "#65B337" : "var(--muted-foreground)",
                     }}
                   >
                     <div className="flex items-center gap-3">
@@ -873,7 +873,7 @@ export function ServicesSection() {
           href="#contact"
           className="group inline-flex items-center gap-3 text-sm tracking-widest uppercase text-foreground"
         >
-          <span className="h-px w-8 bg-foreground transition-all duration-500 group-hover:w-16" />
+            <span className="h-px w-8 bg-[#65B337] transition-all duration-500 group-hover:w-16" />
           Обсудить проект
         </a>
       </div>

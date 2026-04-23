@@ -37,7 +37,7 @@ export function ClientsSection() {
     <section className="bg-surface-light text-surface-light-foreground py-24 px-8">
       <div className="max-w-screen-2xl mx-auto">
         {/* Label */}
-        <p className="text-xs tracking-[0.25em] uppercase text-surface-light-foreground/50 mb-16 text-center">
+        <p className="text-xs tracking-[0.25em] uppercase text-[#65B337] mb-16 text-center">
           Наши клиенты
         </p>
 
@@ -48,7 +48,7 @@ export function ClientsSection() {
               key={name}
               className="flex items-center justify-center py-8 px-4 border-b border-r border-surface-light-foreground/10 last-of-type:border-r-0"
             >
-              <span className="font-serif font-bold text-surface-light-foreground/40 text-lg tracking-tight hover:text-surface-light-foreground transition-colors duration-300 cursor-default">
+              <span className="font-serif font-bold text-surface-light-foreground/40 text-lg tracking-tight hover:text-[#65B337] transition-colors duration-300 cursor-default">
                 {name}
               </span>
             </div>
@@ -60,7 +60,7 @@ export function ClientsSection() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="flex flex-col gap-6 border-t-2 border-accent pt-8"
+              className="flex flex-col gap-6 border-t-2 border-[#65B337] pt-8"
             >
               <blockquote className="text-base leading-relaxed text-surface-light-foreground/80 italic">
                 &ldquo;{t.quote}&rdquo;

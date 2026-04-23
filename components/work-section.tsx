@@ -177,7 +177,7 @@ function ProjectCard({
         {/* Dark overlay fades out on hover */}
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500" />
         {/* Brand green left-edge accent bar */}
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500" />
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand/0 scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500" />
         {/* Project number */}
         <span className={`absolute top-6 left-6 font-mono text-xs tracking-widest ${project.textColor} opacity-60 group-hover:opacity-0 transition-opacity duration-300`}>
           {project.id}
@@ -187,7 +187,7 @@ function ProjectCard({
           ↗
         </span>
         {/* Category tag slides up on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-foreground/85 backdrop-blur-sm">
+        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 backdrop-blur-sm">
           <p className="text-xs tracking-widest uppercase text-brand">{project.category}</p>
         </div>
       </div>
