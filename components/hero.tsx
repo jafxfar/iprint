@@ -33,13 +33,72 @@ function Reveal({
   )
 }
 
-// Free Pexels stock videos (advertising / creative / urban atmosphere)
-const VIDEO_SOURCES = [
-  // City timelapse with neon lights — advertising/urban
-  "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4",
-  // Creative agency people working
-  "https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4",
-]
+/**
+ * Скорость = размер файла / канал пользователя. «Локально» в dev это тот же HTTP, что и URL:
+ * байты те же. В проде `public/*` на Vercel идёт с CDN — это уже «веб».
+ * Ускорение: сжать ролик (720p, ~2–4 Mbps), отдельный лёгкий клип для mobile + `media`,
+ * или `NEXT_PUBLIC_HERO_VIDEO_PRELOAD=metadata` — меньше фоновой загрузки до старта.
+ */
+const HERO_VIDEO_FALLBACK = "/bg.mp4"
+/** Страница ролика на Pexels (атрибуция + скачивание «Free download»). */
+const HERO_VIDEO_PEXELS_PAGE =
+  "https://www.pexels.com/video/elegant-digital-flow-with-minimalist-waves-34645742/"
+
+const isHeroVideoDebug =
+  process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEBUG_HERO_VIDEO === "1"
+
+const logHeroVideo = (...parts: unknown[]) => {
+  if (!isHeroVideoDebug) return
+  console.warn("[Hero video]", ...parts)
+}
+
+const getHeroVideoSnapshot = (v: HTMLVideoElement) => ({
+  currentSrc: v.currentSrc || v.src || "(пусто)",
+  readyState: v.readyState,
+  networkState: v.networkState,
+  paused: v.paused,
+  muted: v.muted,
+  error: v.error
+    ? { code: v.error.code, message: v.error.message || describeMediaErrorCode(v.error.code) }
+    : null,
+})
+
+const describeMediaErrorCode = (code: number) => {
+  switch (code) {
+    case 1:
+      return "MEDIA_ERR_ABORTED"
+    case 2:
+      return "MEDIA_ERR_NETWORK"
+    case 3:
+      return "MEDIA_ERR_DECODE"
+    case 4:
+      return "MEDIA_ERR_SRC_NOT_SUPPORTED"
+    default:
+      return "UNKNOWN"
+  }
+}
+
+const heroVideoPrimary =
+  typeof process.env.NEXT_PUBLIC_HERO_VIDEO_SRC === "string" &&
+  process.env.NEXT_PUBLIC_HERO_VIDEO_SRC.trim().length > 0
+    ? process.env.NEXT_PUBLIC_HERO_VIDEO_SRC.trim()
+    : HERO_VIDEO_FALLBACK
+
+const heroVideoUseLocalFallback =
+  heroVideoPrimary !== HERO_VIDEO_FALLBACK
+
+const heroVideoMobile =
+  typeof process.env.NEXT_PUBLIC_HERO_VIDEO_SRC_MOBILE === "string" &&
+  process.env.NEXT_PUBLIC_HERO_VIDEO_SRC_MOBILE.trim().length > 0
+    ? process.env.NEXT_PUBLIC_HERO_VIDEO_SRC_MOBILE.trim()
+    : ""
+
+const rawPreload =
+  typeof process.env.NEXT_PUBLIC_HERO_VIDEO_PRELOAD === "string"
+    ? process.env.NEXT_PUBLIC_HERO_VIDEO_PRELOAD.trim().toLowerCase()
+    : ""
+const heroVideoPreload: "auto" | "metadata" | "none" =
+  rawPreload === "auto" || rawPreload === "none" || rawPreload === "metadata" ? rawPreload : "metadata"
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -60,21 +119,58 @@ export function Hero() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Ensure video plays (autoplay policy)
+  // Autoplay: call play() after media is ready (early play() often fails silently)
   useEffect(() => {
     const vid = videoRef.current
     if (!vid) return
-    vid.muted = true
-    vid.play().catch(() => {})
+
+    const kickPlayback = (reason: string) => {
+      vid.muted = true
+      vid.defaultMuted = true
+      vid.loop = true
+      vid.playsInline = true
+      void vid.play().catch((err: unknown) => {
+        logHeroVideo(`play() отклонён (${reason})`, err, getHeroVideoSnapshot(vid))
+      })
+    }
+
+    logHeroVideo("инициализация", getHeroVideoSnapshot(vid), { primary: heroVideoPrimary, fallback: heroVideoUseLocalFallback })
+    kickPlayback("mount")
+
+    const onReady = () => kickPlayback("loadeddata|canplay|canplaythrough")
+    vid.addEventListener("loadeddata", onReady)
+    vid.addEventListener("canplay", onReady)
+    vid.addEventListener("canplaythrough", onReady)
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible" && vid.paused) kickPlayback("visibilitychange")
+    }
+    document.addEventListener("visibilitychange", onVisibility)
+
+    const onEnded = () => {
+      if (!vid.loop) return
+      vid.currentTime = 0
+      void vid.play().catch((err: unknown) => logHeroVideo("play() после ended", err, getHeroVideoSnapshot(vid)))
+    }
+    vid.addEventListener("ended", onEnded)
+
+    return () => {
+      vid.removeEventListener("loadeddata", onReady)
+      vid.removeEventListener("canplay", onReady)
+      vid.removeEventListener("canplaythrough", onReady)
+      document.removeEventListener("visibilitychange", onVisibility)
+      vid.removeEventListener("ended", onEnded)
+    }
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-between pt-32 pb-16 overflow-hidden">
+    <section className="relative isolate z-0 min-h-screen flex flex-col justify-between pt-32 pb-16 overflow-hidden">
 
-      {/* ── VIDEO BACKGROUND ── */}
-      <div className="absolute inset-0 -z-10">
+      {/* ── VIDEO BACKGROUND ──
+          Не используйте -z-10: слой уходит под непрозрачный bg-background у <main> и видео не видно. */}
+      <div className="absolute inset-0 z-0 min-h-full w-full">
         {/* Light overlay so text stays readable over video */}
-        <div className="absolute inset-0 z-10 bg-white/75" />
+        <div className="absolute inset-0 z-10 bg-white/65" />
         {/* Gradient vignette for depth */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
@@ -98,30 +194,56 @@ export function Hero() {
         {!videoError && (
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 z-0 h-full w-full object-cover"
             style={{
               opacity: videoLoaded ? 1 : 0,
-              transition: "opacity 1.8s ease",
+              transition: "opacity 1.2s ease",
             }}
             autoPlay
             muted
-            loop
             playsInline
-            preload="auto"
-            onCanPlayThrough={() => setVideoLoaded(true)}
-            onError={() => setVideoError(true)}
+            loop
+            preload={heroVideoPreload}
+            onLoadedMetadata={() => {
+              logHeroVideo("loadedmetadata", videoRef.current && getHeroVideoSnapshot(videoRef.current))
+              setVideoLoaded(true)
+            }}
+            onLoadedData={() => {
+              logHeroVideo("loadeddata", videoRef.current && getHeroVideoSnapshot(videoRef.current))
+              setVideoLoaded(true)
+            }}
+            onCanPlay={() => {
+              logHeroVideo("canplay", videoRef.current && getHeroVideoSnapshot(videoRef.current))
+              setVideoLoaded(true)
+            }}
+            onPlaying={() => {
+              logHeroVideo("playing — воспроизведение идёт", videoRef.current && getHeroVideoSnapshot(videoRef.current))
+              setVideoLoaded(true)
+            }}
+            onWaiting={() => logHeroVideo("waiting — не хватает данных в буфере")}
+            onStalled={() => logHeroVideo("stalled — загрузка остановилась")}
+            onAbort={() => logHeroVideo("abort — загрузка прервана")}
+            onError={(e) => {
+              const v = e.currentTarget
+              logHeroVideo("событие error — см. error.code / networkState", getHeroVideoSnapshot(v))
+              setVideoError(true)
+            }}
           >
-            <source src={VIDEO_SOURCES[0]} type="video/mp4" />
-            <source src={VIDEO_SOURCES[1]} type="video/mp4" />
+            {heroVideoMobile ? (
+              <source src={heroVideoMobile} type="video/mp4" media="(max-width: 768px)" />
+            ) : null}
+            <source src={heroVideoPrimary} type="video/mp4" />
+            {heroVideoUseLocalFallback ? <source src={HERO_VIDEO_FALLBACK} type="video/mp4" /> : null}
           </video>
         )}
 
         {/* Fallback for when video hasn't loaded yet */}
         <div
-          className="absolute inset-0 bg-background"
+          className="absolute inset-0 z-1 bg-background"
           style={{
             opacity: videoLoaded ? 0 : 1,
-            transition: "opacity 1.8s ease",
+            transition: "opacity 1.2s ease",
+            pointerEvents: "none",
           }}
           aria-hidden="true"
         />
@@ -180,22 +302,44 @@ export function Hero() {
         </div>
 
         {/* Bottom stats row */}
-        <Reveal delay={900} className="flex items-end justify-between pt-12 border-t border-brand/30">
-          <div className="flex gap-12">
-            {[
-              { num: "22+", label: "лет" },
-              { num: "1000+", label: "проектов" },
-              { num: "99%", label: "удовлетворенных клиентов" },
-            ].map(({ num, label }, i) => (
-              <div
-                key={label}
-                className="animate-count-up"
-                style={{ animationDelay: `${900 + i * 120}ms` }}
+        <Reveal delay={900} className="flex flex-col gap-4 pt-12 border-t border-brand/30 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-12">
+              {[
+                { num: "22+", label: "лет" },
+                { num: "1000+", label: "проектов" },
+                { num: "99%", label: "удовлетворенных клиентов" },
+              ].map(({ num, label }, i) => (
+                <div
+                  key={label}
+                  className="animate-count-up"
+                  style={{ animationDelay: `${900 + i * 120}ms` }}
+                >
+                  <p className="font-serif font-bold text-3xl text-brand">{num}</p>
+                  <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">{label}</p>
+                </div>
+              ))}
+            </div>
+            {/* <p className="text-[10px] tracking-wide text-muted-foreground/80 max-w-md">
+              Фоновое видео:{" "}
+              <a
+                href={HERO_VIDEO_PEXELS_PAGE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-muted-foreground/50 underline-offset-2 hover:text-brand hover:decoration-brand"
               >
-                <p className="font-serif font-bold text-3xl text-brand">{num}</p>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">{label}</p>
-              </div>
-            ))}
+                Pexels — Elegant digital flow with minimalist waves
+              </a>
+              . Скачайте MP4 с Pexels и положите как{" "}
+              <code className="rounded bg-muted/60 px-1 py-0.5 text-[9px]">public/bg.mp4</code>
+              {" "}или задайте{" "}
+              <code className="rounded bg-muted/60 px-1 py-0.5 text-[9px]">NEXT_PUBLIC_HERO_VIDEO_SRC</code>
+              {" "}(прямая ссылка на файл из Network). Для узких экранов —{" "}
+              <code className="rounded bg-muted/60 px-1 py-0.5 text-[9px]">NEXT_PUBLIC_HERO_VIDEO_SRC_MOBILE</code>
+              {", "}
+              <code className="rounded bg-muted/60 px-1 py-0.5 text-[9px]">NEXT_PUBLIC_HERO_VIDEO_PRELOAD</code>
+              {" "}(metadata | auto | none).
+            </p> */}
           </div>
           {/* Brand scroll indicator */}
           <a
@@ -215,7 +359,7 @@ export function Hero() {
       {/* Decorative parallax watermark */}
       <div
         ref={bgLetterRef}
-        className="absolute right-0 top-1/2 flex items-center justify-end select-none pointer-events-none z-10"
+        className="pointer-events-none absolute right-0 top-1/2 z-15 flex select-none items-center justify-end"
         style={{
           height: "clamp(6.4rem, 22.4vw, 28.8rem)",
           width: "clamp(6.4rem, 22.4vw, 28.8rem)",

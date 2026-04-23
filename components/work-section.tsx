@@ -14,7 +14,7 @@ const projects = [
     color: "bg-warm",
     textColor: "text-warm-foreground",
     size: "large",
-    img: "/placeholder.svg?width=900&height=600",
+    img: "/projects/vella/hero.jpg",
   },
   {
     id: "02",
@@ -25,7 +25,7 @@ const projects = [
     color: "bg-secondary",
     textColor: "text-foreground",
     size: "small",
-    img: "/placeholder.svg?width=600&height=600",
+    img: "/projects/meridian/hero.jpg",
   },
   {
     id: "03",
@@ -36,7 +36,7 @@ const projects = [
     color: "bg-card",
     textColor: "text-foreground",
     size: "small",
-    img: "/placeholder.svg?width=600&height=600",
+    img: "/projects/aura-health/hero.jpg",
   },
   {
     id: "04",
@@ -47,7 +47,7 @@ const projects = [
     color: "bg-secondary",
     textColor: "text-foreground",
     size: "large",
-    img: "/placeholder.svg?width=900&height=600",
+    img: "/projects/kronos/hero.jpg",
   },
   {
     id: "05",
@@ -58,7 +58,7 @@ const projects = [
     color: "bg-card",
     textColor: "text-foreground",
     size: "small",
-    img: "/placeholder.svg?width=600&height=600",
+    img: "/projects/novus-collective/hero.jpg",
   },
   {
     id: "06",
@@ -69,7 +69,7 @@ const projects = [
     color: "bg-warm",
     textColor: "text-warm-foreground",
     size: "small",
-    img: "/placeholder.svg?width=600&height=600",
+    img: "/projects/pulse-media/hero.jpg",
   },
 ]
 

@@ -73,63 +73,106 @@ export default function ProjectPage({ params }: { params: Promise<{ id: string }
       <Navbar />
       <main className="bg-background text-foreground">
 
-        {/* ── HERO ── */}
-        <section className="relative min-h-[80vh] flex flex-col justify-end overflow-hidden">
-          <div className="absolute inset-0 -z-10">
+        {/* ── HERO: фон (heroImage) + главное изображение (coverImage) ── */}
+        <section className="relative isolate z-0 flex min-h-[85vh] flex-col justify-end overflow-hidden md:min-h-[88vh]">
+          <div className="pointer-events-none absolute inset-0 z-0 min-h-full w-full">
             <img
               src={project.heroImage}
-              alt={project.title}
-              className="w-full h-full object-cover scale-105"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full scale-105 object-cover"
               style={{ animation: "heroZoom 8s ease-out forwards" }}
             />
-            <div className="absolute inset-0 bg-foreground/65" />
-            {/* Brand green diagonal stripe at bottom */}
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/50 to-foreground/35"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute inset-0 opacity-[0.06]"
+              aria-hidden="true"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                backgroundRepeat: "repeat",
+                backgroundSize: "128px 128px",
+              }}
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-transparent"
+              aria-hidden="true"
+            />
             <div
               className="absolute bottom-0 left-0 right-0 h-1 bg-brand"
+              aria-hidden="true"
               style={{ boxShadow: "0 0 24px 4px rgba(101,179,55,0.6)" }}
             />
           </div>
 
-          <div className="relative z-10 px-8 max-w-screen-2xl mx-auto w-full pb-16 pt-40">
-            {/* Breadcrumb */}
-            <Reveal delay={100}>
-              <nav aria-label="Breadcrumb" className="mb-8">
-                <ol className="flex items-center gap-2 text-xs tracking-widest uppercase text-white/50">
-                  <li>
-                    <Link href="/" className="hover:text-brand transition-colors duration-200">Главная</Link>
-                  </li>
-                  <li aria-hidden="true" className="text-white/30">/</li>
-                  <li>
-                    <Link href="/#work" className="hover:text-brand transition-colors duration-200">Проекты</Link>
-                  </li>
-                  <li aria-hidden="true" className="text-white/30">/</li>
-                  <li className="text-white">{project.title}</li>
-                </ol>
-              </nav>
-            </Reveal>
+          <div className="relative z-20 mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-10 px-8 pb-16 pt-32 md:pt-40 lg:grid-cols-12 lg:items-end lg:gap-x-12 lg:gap-y-0">
+            <div className="lg:col-span-7">
+              <Reveal delay={100}>
+                <nav aria-label="Breadcrumb" className="mb-8">
+                  <ol className="flex flex-wrap items-center gap-2 text-xs tracking-widest text-white/50 uppercase">
+                    <li>
+                      <Link href="/" className="transition-colors duration-200 hover:text-brand">
+                        Главная
+                      </Link>
+                    </li>
+                    <li aria-hidden="true" className="text-white/30">
+                      /
+                    </li>
+                    <li>
+                      <Link href="/#work" className="transition-colors duration-200 hover:text-brand">
+                        Проекты
+                      </Link>
+                    </li>
+                    <li aria-hidden="true" className="text-white/30">
+                      /
+                    </li>
+                    <li className="text-white">{project.title}</li>
+                  </ol>
+                </nav>
+              </Reveal>
 
-            {/* Category badge */}
-            <Reveal delay={200}>
-              <div className="inline-flex items-center gap-2 mb-6">
-                <span
-                  className="w-2 h-2 rounded-full bg-brand brand-pulse"
-                  aria-hidden="true"
-                />
-                <p className="text-xs tracking-[0.3em] uppercase text-brand font-medium">
-                  {project.category}
-                </p>
+              <Reveal delay={200}>
+                <div className="mb-6 inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand brand-pulse" aria-hidden="true" />
+                  <p className="text-xs font-medium tracking-[0.3em] text-brand uppercase">{project.category}</p>
+                </div>
+              </Reveal>
+
+              <div className="overflow-hidden">
+                <Reveal delay={350}>
+                  <h1
+                    className="font-serif leading-none font-bold text-white"
+                    style={{ fontSize: "clamp(3rem, 10vw, 10rem)", letterSpacing: "-0.02em" }}
+                  >
+                    {project.title}
+                  </h1>
+                </Reveal>
               </div>
-            </Reveal>
+            </div>
 
-            {/* Title */}
-            <div className="overflow-hidden">
-              <Reveal delay={350}>
-                <h1
-                  className="font-serif font-bold text-white leading-none"
-                  style={{ fontSize: "clamp(3rem, 10vw, 10rem)", letterSpacing: "-0.02em" }}
-                >
-                  {project.title}
-                </h1>
+            <div className="lg:col-span-5">
+              <Reveal delay={450} direction="right">
+                <figure className="relative mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none">
+                  <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/20 bg-white/5 shadow-2xl ring-1 ring-white/10">
+                    <img
+                      src={project.coverImage}
+                      alt={`${project.title} — ключевой визуал проекта`}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.02]"
+                      width={1200}
+                      height={900}
+                      loading="eager"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <figcaption className="mt-3 text-xs tracking-wider text-white/45 uppercase">
+                    Ключевой кадр
+                  </figcaption>
+                </figure>
               </Reveal>
             </div>
           </div>
