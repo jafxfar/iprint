@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useInView } from "@/hooks/use-in-view"
 
 const projects = [
   {
     id: "01",
+    slug: "vella",
     title: "Vella",
     category: "Brand Identity & Strategy",
     tags: ["Retail", "Identity"],
@@ -16,6 +18,7 @@ const projects = [
   },
   {
     id: "02",
+    slug: "meridian",
     title: "Meridian",
     category: "Digital Campaign",
     tags: ["Finance", "Campaign"],
@@ -26,6 +29,7 @@ const projects = [
   },
   {
     id: "03",
+    slug: "aura-health",
     title: "Aura Health",
     category: "Product Design & Motion",
     tags: ["Health", "Product"],
@@ -36,6 +40,7 @@ const projects = [
   },
   {
     id: "04",
+    slug: "kronos",
     title: "Kronos",
     category: "AI Strategy & Brand",
     tags: ["Tech", "AI"],
@@ -46,6 +51,7 @@ const projects = [
   },
   {
     id: "05",
+    slug: "novus-collective",
     title: "Novus Collective",
     category: "Content & Identity",
     tags: ["Fashion", "Content"],
@@ -56,6 +62,7 @@ const projects = [
   },
   {
     id: "06",
+    slug: "pulse-media",
     title: "Pulse Media",
     category: "Growth Marketing",
     tags: ["Media", "Growth"],
@@ -106,8 +113,8 @@ export function WorkSection() {
               onClick={() => setActive(f)}
               className={`text-xs tracking-widest uppercase px-4 py-2 border transition-all duration-300 ${
                 active === f
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                  ? "bg-brand text-brand-foreground border-brand"
+                  : "border-border text-muted-foreground hover:border-brand hover:text-brand"
               }`}
             >
               {f}
@@ -128,6 +135,7 @@ export function WorkSection() {
               project={project}
               colSpan={colSpan}
               index={i}
+              href={`/projects/${project.slug}`}
             />
           )
         })}
@@ -140,17 +148,20 @@ function ProjectCard({
   project,
   colSpan,
   index,
+  href,
 }: {
   project: typeof projects[0]
   colSpan: string
   index: number
+  href: string
 }) {
   const { ref, inView } = useInView({ threshold: 0.1 })
 
   return (
-    <article
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`group relative overflow-hidden cursor-pointer ${colSpan}`}
+    <Link
+      href={href}
+      ref={ref as React.RefObject<HTMLAnchorElement>}
+      className={`group relative overflow-hidden cursor-pointer ${colSpan} block`}
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(60px)",
@@ -181,16 +192,16 @@ function ProjectCard({
       <div className="pt-5 pb-8 border-b border-border">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-serif font-bold text-foreground text-2xl mb-1 group-hover:text-accent transition-colors duration-300">
+            <h3 className="font-serif font-bold text-foreground text-2xl mb-1 group-hover:text-brand transition-colors duration-300">
               {project.title}
             </h3>
             <p className="text-sm text-muted-foreground">{project.category}</p>
           </div>
-          <span className="text-xs tracking-widest uppercase text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="text-xs tracking-widest uppercase text-brand mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             View ↗
           </span>
         </div>
       </div>
-    </article>
+    </Link>
   )
 }

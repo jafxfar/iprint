@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "vella",
+    "id": "01",
+    "title": "Vella",
+    "category": "Brand Identity & Strategy",
+    "client": "Vella Retail Group",
+    "year": "2024",
+    "services": ["Брендинг", "Стратегия", "Полиграфия"],
+    "tags": ["Retail", "Identity"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=900&height=600",
+    "summary": "Полное переосмысление идентичности розничной сети Vella — от логотипа до системы навигации в точках продаж.",
+    "challenge": "Vella работала с устаревшим визуальным языком, который не отражал её позиционирование как premium-ритейлера. Бренд терялся на полке среди конкурентов, а коммуникации были разрозненными.",
+    "solution": "Мы разработали единую систему идентичности: новый логотип, типографику, цветовую палитру и систему применения на всех носителях — от упаковки до интерьерной навигации.",
+    "results": [
+      "Рост узнаваемости бренда на 40% по данным опросов",
+      "Единая визуальная система для 12 точек продаж",
+      "Снижение затрат на производство материалов на 25%"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  },
+  {
+    "slug": "meridian",
+    "id": "02",
+    "title": "Meridian",
+    "category": "Digital Campaign",
+    "client": "Meridian Finance",
+    "year": "2024",
+    "services": ["Digital-кампания", "Контент", "OOH-реклама"],
+    "tags": ["Finance", "Campaign"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=600&height=600",
+    "summary": "Интегрированная рекламная кампания для выхода финансового продукта на рынок Таджикистана.",
+    "challenge": "Необходимо было представить сложный финансовый продукт простым и убедительным языком для широкой аудитории, сохранив доверие и профессионализм бренда.",
+    "solution": "Разработали концепцию «Уверенный шаг» — кампанию на стыке эмоции и рациональности. Реализовали в digital, OOH и печатных форматах с единой визуальной нитью.",
+    "results": [
+      "3,2 млн охват за первые 2 недели",
+      "Конверсия в заявки выросла на 60%",
+      "Кампания отмечена как лучшая в категории fintech"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  },
+  {
+    "slug": "aura-health",
+    "id": "03",
+    "title": "Aura Health",
+    "category": "Product Design & Motion",
+    "client": "Aura Health Clinic",
+    "year": "2023",
+    "services": ["Дизайн продукта", "Motion", "Полиграфия"],
+    "tags": ["Health", "Product"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=600&height=600",
+    "summary": "Дизайн системы визуальных коммуникаций для современной частной клиники с акцентом на доверие и спокойствие.",
+    "challenge": "Медицинский бренд часто выглядит холодным и бездушным. Задача — создать идентичность, которая излучает профессионализм, но при этом остаётся тёплой и человечной.",
+    "solution": "Мягкая типографика, органичные формы и сдержанная палитра формируют атмосферу заботы. Разработаны анимации для цифровых экранов и полный пакет интерьерной навигации.",
+    "results": [
+      "NPS клиники вырос с 62 до 89 пунктов",
+      "Пациенты отмечают ощущение «уюта» при первом визите",
+      "Система применена в 3 филиалах клиники"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  },
+  {
+    "slug": "kronos",
+    "id": "04",
+    "title": "Kronos",
+    "category": "AI Strategy & Brand",
+    "client": "Kronos Technologies",
+    "year": "2024",
+    "services": ["Стратегия", "Брендинг", "Презентации"],
+    "tags": ["Tech", "AI"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=900&height=600",
+    "summary": "Стратегия позиционирования и визуальная идентичность для AI-стартапа, выходящего на международный рынок.",
+    "challenge": "Стартап обладал сильным продуктом, но не имел чёткого голоса и визуального лица. Необходимо было выделиться в перенасыщенном AI-пространстве.",
+    "solution": "Позиционирование «Время на вашей стороне» — фокус на продуктивности и контроле. Минималистичная идентичность с акцентом на точность и технологичность.",
+    "results": [
+      "Успешное привлечение seed-раунда на $2,4M",
+      "Упоминания в 5 профильных изданиях",
+      "Партнёрство с 3 крупными корпоративными клиентами"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  },
+  {
+    "slug": "novus-collective",
+    "id": "05",
+    "title": "Novus Collective",
+    "category": "Content & Identity",
+    "client": "Novus Fashion House",
+    "year": "2023",
+    "services": ["Контент", "Съёмка", "Брендинг"],
+    "tags": ["Fashion", "Content"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=600&height=600",
+    "summary": "Разработка контент-стратегии и визуального языка для модного дома, стремящегося к международной аудитории.",
+    "challenge": "Novus Collective имел сильный продукт, но слабое digital-присутствие. Отсутствовал единый голос бренда в социальных сетях и на маркетинговых материалах.",
+    "solution": "Создали контент-систему: от мудборда и редполитики до шаблонов для Instagram и look book. Провели серию съёмок, задающих визуальный тон бренда.",
+    "results": [
+      "Рост подписчиков в Instagram на 180% за 3 месяца",
+      "Engagement rate поднялся с 1,2% до 6,8%",
+      "Выход в 2 новых международных рынка"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  },
+  {
+    "slug": "pulse-media",
+    "id": "06",
+    "title": "Pulse Media",
+    "category": "Growth Marketing",
+    "client": "Pulse Media Group",
+    "year": "2023",
+    "services": ["Growth Marketing", "SMM", "Аналитика"],
+    "tags": ["Media", "Growth"],
+    "heroImage": "/placeholder.svg?width=1600&height=900",
+    "coverImage": "/placeholder.svg?width=600&height=600",
+    "summary": "Комплексная growth-стратегия для медиа-холдинга, охватывающая органический рост и платное продвижение.",
+    "challenge": "Высокая стоимость привлечения аудитории при низкой retention-rate. Необходимо было перестроить воронку и улучшить удержание.",
+    "solution": "Провели аудит воронки, перераспределили бюджеты, внедрили email-последовательности и систему реактивации. Разработали контент-план для органического трафика.",
+    "results": [
+      "CAC снизился на 45%",
+      "Retention rate вырос с 22% до 51%",
+      "ROI кампаний увеличился в 3,2 раза"
+    ],
+    "gallery": [
+      "/placeholder.svg?width=1200&height=800",
+      "/placeholder.svg?width=800&height=1000",
+      "/placeholder.svg?width=1200&height=800"
+    ]
+  }
+]

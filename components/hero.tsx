@@ -170,9 +170,9 @@ export function Hero() {
               </p>
               <a
                 href="#work"
-                className="group inline-flex items-center gap-3 text-sm tracking-widest uppercase text-foreground self-start md:self-auto"
+                className="group inline-flex items-center gap-3 text-sm tracking-widest uppercase text-foreground self-start md:self-auto hover:text-brand transition-colors duration-300"
               >
-                <span className="h-px w-12 bg-foreground group-hover:w-20 transition-all duration-500" />
+                <span className="h-px w-12 bg-foreground group-hover:w-20 group-hover:bg-brand transition-all duration-500" />
                 Наши проекты
               </a>
             </Reveal>
@@ -188,7 +188,7 @@ export function Hero() {
               { num: "99%", label: "удовлетворенных клиентов" },
             ].map(({ num, label }) => (
               <div key={label}>
-                <p className="font-serif font-bold text-3xl text-foreground">{num}</p>
+                <p className="font-serif font-bold text-3xl text-brand">{num}</p>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">{label}</p>
               </div>
             ))}

@@ -31,6 +31,9 @@
   /* Warm card fill */
   --warm: oklch(0.93 0 0);
   --warm-foreground: oklch(0.09 0 0);
+  /* Brand green — secondary accent */
+  --brand: #65b337;
+  --brand-foreground: #ffffff;
 }
 
 @theme inline {
@@ -79,6 +82,8 @@
   --color-warm-foreground: var(--warm-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
 }
 
 @layer base {

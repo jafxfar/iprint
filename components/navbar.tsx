@@ -50,10 +50,10 @@ export function Navbar() {
           {/* CTA */}
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase border border-foreground px-5 py-2.5 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+            className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase border border-foreground px-5 py-2.5 text-foreground hover:bg-brand hover:text-brand-foreground hover:border-brand transition-all duration-300"
           >
             Начать проект
-            <span className="text-accent">↗</span>
+            <span>↗</span>
           </a>
 
           {/* Burger */}
@@ -93,7 +93,7 @@ export function Navbar() {
         <a
           href="#contact"
           onClick={() => setMenuOpen(false)}
-          className="mt-6 text-sm tracking-widest uppercase border border-foreground px-8 py-3 text-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+          className="mt-6 text-sm tracking-widest uppercase border border-brand bg-brand text-brand-foreground px-8 py-3 hover:bg-foreground hover:border-foreground hover:text-background transition-all duration-300"
         >
           Начать проект
         </a>
